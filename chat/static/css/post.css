@@ -1,0 +1,7 @@
+body{
+    margin: 2rem;
+}
+.post{
+    margin: 1rem;
+    background-color: rgba(0, 0, 0, 0.3);
+}
