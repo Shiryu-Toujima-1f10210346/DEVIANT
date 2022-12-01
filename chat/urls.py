@@ -12,5 +12,5 @@ urlpatterns = [
     path("tos/", views.tos, name="tos"),
     path("forgotpass/", views.forgotpass, name="forgotpass"),
     path("chat/", views.chat, name="chat"),
-    path("<str:room_name>/", views.room, name="room"),
+    path("chat/<str:room_name>/", views.room, name="room"),
 ]
