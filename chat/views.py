@@ -1,6 +1,14 @@
 from django.shortcuts import render
+from chat.models import Post
+from django.views.generic import View, TemplateView, ListView,CreateView, DetailView
 
-# Create your views here.
+#投稿の一覧を表示するビュー
+class PostListView(ListView):
+    template_name = 'chat/home.html'
+    model = Post
+home = PostListView.as_view()
+
+# simple url define
 def index(request):
     return render(request, "chat/index.html")
 def signup(request):

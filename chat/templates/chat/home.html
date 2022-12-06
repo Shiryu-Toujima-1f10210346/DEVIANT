@@ -12,7 +12,15 @@
 <body>
         
     <h1>ここにみんなのコンテンツ</h1>
-    
+    {% for post in object_list %}
+    <div class= "container">
+        <p>投稿者:{{ post.author }}</p>
+        <h2>タイトル:{{ post.title }}</h2>
+        <p>本文:{{ post.content }}</p>
+        <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+        <br>
+    </div>
+    {% endfor %}    
 
 
     <script>
