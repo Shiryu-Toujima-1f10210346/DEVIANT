@@ -1,4 +1,5 @@
-
+{% extends 'chat/header.html' %}
+{% block header %}
 <!DOCTYPE html>
 {% load static %}
 
@@ -6,80 +7,104 @@
 <head>
     <meta charset="utf-8"/>
     <title>Sign up</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
 </head>
 
 <body>
 
     <!-- Section: Design Block -->
-<section class="background-radial-gradient overflow-hidden">
-  <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-    <div class="row gx-lg-5 align-items-center mb-5">
-      <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-        <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-          Your world  <br />
-          <span style="color: hsl(218, 81%, 75%)">to many people</span>
-        </h1>
-        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
-          LCette phrase est une phrase française complètement dénuée de sens.
-          Il n'est pas nécessaire de le traduire. Je n'ai jamais pensé que je toucherais à nouveau à Django. Je n'ai plus rien à écrire.
-          S'il vous plaît, achetez un Pokémon SV.
-        </p>
-      </div>
-
-      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
-        <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-        <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
-
-        <div class="card bg-glass">
-          <div class="card-body px-4 py-5 px-md-5">
+    <section class="h-screen"  id="main">
+      <span class="px-6 h-full text-gray-800">
+        <div
+          class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"
+        >
+          <div
+            class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
+          >
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+              class="w-full"
+              alt="Sample image"
+            />
+          </div>
+          <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
             <form>
-              <!-- 2 column grid layout with text inputs for the first and last names -->
-              <div class="form-outline mb-4">
-                <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
-                <label class="form-label" for="form3Example1cg">User Name</label>
+              <div
+                class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
+              >
+                <p class="text-center font-semibold mx-4 mb-0">Submit Your Info</p>
               </div>
-
-
+    
+              <!-- Username input -->
+              <div class="mb-6">
+                <input
+                  type="text"
+                  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleFormControlInput2"
+                  placeholder="Alex Django"
+                />UserName
+              </div>
+    
               <!-- Password input -->
-              <div class="form-outline mb-4">
-                <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                <label class="form-label" for="form3Example4cg">Password</label>
+              <div class="mb-6">
+                <input
+                  type="password"
+                  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleFormControlInput2"
+                  placeholder="********"
+                />Password
               </div>
 
-              <div class="form-outline mb-4">
-                <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
-                <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+              <div class="mb-6">
+                <input
+                  type="password"
+                  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleFormControlInput2"
+                  placeholder="********"
+                />Repeat Password
               </div>
-
-              <div class="form-check d-flex justify-content-center mb-5">
-                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
-                <label class="form-check-label" for="form2Example3g">
-                  I agree all statements in <a href="http://localhost:8000/tos" class="text-body"><u>Terms of service</u></a>
-                </label>
+    
+              <div class="flex justify-between items-center mb-6">
+                <div class="form-group form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                    id="exampleCheck2"
+                  />
+                  <label class="form-check-label inline-block text-gray-800" for="exampleCheck2"
+                    > I agree all statements in <a href="http://localhost:8000/tos" class="text-body"><u>Terms of service</u></a></label
+                  >
+                </div>
+                <a href="#!" class="text-gray-800">.</a>
               </div>
-
-              <!-- Submit button -->
-              <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-primary" type="button">Sign Up</button>
-              </div>
-               <!--login-->
-               <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="../login"
-                class="fw-bold text-body"><u>Login here</u></a></p>
-
+    
+              <div class="text-center lg:text-center">
+                <button
+                  type="button"
+                  class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                >
+                  Sign Up
+                </button>
+                <p class="text-lg font-semibold mt-5 pt-1 mb-0">
+                  Don't have an account?
+                  <a
+                    href="../login"
+                    class="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
+                    >Register</a
+                  >
+                </p>
               </div>
             </form>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </span>
+    </section>
 <!-- Section: Design Block -->
 
     <script>
         
     </script>
 </body>
+{% endblock %}
 </html>

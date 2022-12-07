@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+{% extends 'chat/header.html' %}
+{% block header %}
+
+<body>
+    <div class= "container">
+        <p>投稿者:{{ post.author }}</p>
+        <h2>タイトル:{{ post.title }}</h2>
+        <p>本文:{{ post.content }}</p>
+        <p>お気に入り数:{{ post.fav_num }}</p>
+        <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+        <a href = "post/{{ post.id }}">詳細</a>
+        <br>
+    </div>
+    <script>
+    </script>
+
+</body>
+{% endblock %}
+</html>
