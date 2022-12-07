@@ -8,6 +8,13 @@ class PostListView(ListView):
     model = Post
 home = PostListView.as_view()
 
+#Postモデルを使って投稿を作成するビュー
+class PostCreateView(CreateView):
+    template_name = 'chat/post.html'
+    model = Post
+    fields = ('author', 'title', 'content')
+    success_url = '/home/'
+post = PostCreateView.as_view()
 # simple url define
 def index(request):
     return render(request, "chat/index.html")

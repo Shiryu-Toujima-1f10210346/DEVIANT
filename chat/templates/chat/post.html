@@ -10,8 +10,30 @@
 {% block header %}
 
 <body>
-        
-  <div class="post bg-slate-300 rounded-lg drop-shadow-xl">
+    <!--Postモデルを利用した投稿機能-->
+    <form action="" method="post"><!--投稿完了を表示させたい-->
+      {%csrf_token%}
+      <table>
+        <div class="">
+        <label for="id_author_name">投稿者名</label>
+        <input type="text" name="author" class="" maxlength="24" required
+          id="id_author_name" placeholder="あなたの名前">
+      </div>
+        <div class="">
+          <label for="id_title">タイトル</label>
+          <input type="text" name="title" maxlength="24" class="" required id="id_title"
+            placeholder="タイトル">
+        </div>
+        <div class="">
+          <label for="id_content">概要</label>
+          <textarea name="content" class="" required id="content" rows="10"></textarea>
+        </div>
+        <button type="submit" class="">投稿</button>
+    </form>
+
+
+
+  {% comment %} <div class="">
     <h1>This is post page</h1>
     <div class="m-3">
         <label for="title" class="">Title</label><br>
@@ -27,7 +49,7 @@
         <button type="button" class="btn rounded-lg drop-shadow-xl">Send</button>
       </div>
     </div>
-    
+     {% endcomment %}
 
 
     <script>
