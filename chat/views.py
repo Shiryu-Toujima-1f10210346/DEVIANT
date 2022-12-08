@@ -24,7 +24,7 @@ class PostCreateView(CreateView):
     template_name = 'chat/post.html'
     model = Post
     fields = ('author', 'title', 'content')
-    success_url = '/home/'
+    success_url = 'http://localhost:8000/home/'
 post = PostCreateView.as_view()
 
 #投稿の詳細を表示するビュー

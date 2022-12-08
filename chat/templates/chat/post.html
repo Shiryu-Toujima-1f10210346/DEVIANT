@@ -13,7 +13,6 @@
     <!--Postモデルを利用した投稿機能-->
     <form action="" method="post"><!--投稿完了を表示させたい-->
       {%csrf_token%}
-      <table>
         <div class="">
         <label for="id_author_name">投稿者名</label>
         <input type="text" name="author" class="" maxlength="24" required
@@ -29,30 +28,8 @@
           <textarea name="content" class="" required id="content" rows="10"></textarea>
         </div>
         <button type="submit" class="">投稿</button>
-    </form>
-
-
-
-  {% comment %} <div class="">
-    <h1>This is post page</h1>
-    <div class="m-3">
-        <label for="title" class="">Title</label><br>
-        <input type="title" class="" id="title" placeholder="Title">
-      </div>
-      <div class="m-3">
-        <label for="introduce" class="">Introduce</label><br>
-        <textarea class="" id="Introduce" cols = "40" rows="10"></textarea>
-        <br>
-        <label for="image" class="">Image</label><br>
-        <input type="file" name="image">
-        <br>
-        <button type="button" class="btn rounded-lg drop-shadow-xl">Send</button>
-      </div>
-    </div>
-     {% endcomment %}
-
-
-    <script>
+      </form>
+          <script>
     </script>
 
 </body>
