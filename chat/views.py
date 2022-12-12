@@ -1,6 +1,12 @@
 from django.shortcuts import render
 from chat.models import Post
+from .forms import AccountForm
 from django.views.generic import View, TemplateView, ListView,CreateView, DetailView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 #投稿の一覧を表示するビュー
 class PostListView(ListView):
@@ -27,21 +33,51 @@ class PostCreateView(CreateView):
     model = Post
     fields = ('author', 'title', 'content')
     success_url = 'http://localhost:8000/home/'
-post = PostCreateView.as_view()
 
 #投稿の詳細を表示するビュー
 class PostDetailView(DetailView):
     template_name = "chat/detail.html"
     model = Post
-detail = PostDetailView.as_view()
+
+def Login(request):
+    if request.method == 'POST':
+        # フォーム入力のユーザーID・パスワード取得
+        UserName = request.POST.get('username')
+        Pass = request.POST.get('password')
+
+        # Djangoの認証機能
+        user = authenticate(username=UserName, password=Pass)
+
+        # ユーザー認証
+        if user:
+            #ユーザーアクティベート判定
+            if user.is_active:
+                # ログイン
+                login(request, user)
+                # ホームページ遷移
+                return HttpResponseRedirect(reverse('home'))
+            else:
+                # アカウント利用不可
+                return HttpResponse("アカウントが有効ではありません")
+        # ユーザー認証失敗
+        else:
+            return HttpResponse("ログインIDまたはパスワードが間違っています")
+    # GET
+    else:
+        return render(request, 'chat/login.html')
+
+
+class Logout(LogoutView):
+    template_name = "chat/logout.html"
+    next_page = "http://localhost:8000/home"
 
 # simple url define
 def index(request):
     return render(request, "chat/index.html")
 def signup(request):
     return render(request, "chat/signup.html")
-def login(request):
-    return render(request, "chat/login.html")
+#def login(request):
+    #return render(request, "chat/login.html")
 def others_prof(request):
     return render(request, "chat/others_prof.html")
 def my_prof(request):

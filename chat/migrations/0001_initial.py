@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Idea',
+            name='Post',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('author', models.CharField(max_length=50)),
@@ -20,6 +20,17 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('fav_num', models.IntegerField(default=0)),
                 ('img', models.ImageField(blank=True, null=True, upload_to='images/')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='User',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('username', models.CharField(max_length=50)),
+                ('password', models.CharField(max_length=50)),
+                ('email', models.CharField(max_length=50)),
+                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
+                #('img', models.ImageField(blank=True, null=True, upload_to='images/')),
             ],
         ),
     ]

@@ -21,7 +21,4 @@ class Migration(migrations.Migration):
                 ('fav_num', models.IntegerField(default=0)),
             ],
         ),
-        migrations.DeleteModel(
-            name='Idea',
-        ),
     ]
