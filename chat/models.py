@@ -14,12 +14,7 @@ class Post(models.Model):
     def post(self):
         self.created_at = timezone.now()  
 class Account (models.Model):
-    username = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-    email = models.CharField(max_length=50)
-    created_at = models.DateTimeField(default=timezone.now)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     #img = models.ImageField(upload_to='images/', blank=True, null=True)
     def __str__(self):
-        return self.username
-    def post(self):
-        self.created_at = timezone.now()
+        return self.user.username

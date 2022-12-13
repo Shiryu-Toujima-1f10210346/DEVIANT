@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from chat.models import Post
+from chat.models import Post, Account
 from .forms import AccountForm
 from django.views.generic import View, TemplateView, ListView,CreateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 #投稿の一覧を表示するビュー
@@ -66,6 +67,48 @@ def Login(request):
     else:
         return render(request, 'chat/login.html')
 
+class  AccountRegistration(TemplateView):
+
+    def __init__(self):
+        self.params = {
+        "AccountCreate":False,
+        "account_form": AccountForm(),
+        }
+
+    # Get処理
+    def get(self,request):
+        self.params["account_form"] = AccountForm()
+        self.params["AccountCreate"] = False
+        return render(request,"chat/signup.html",context=self.params)
+
+    # Post処理
+    def post(self,request):
+        self.params["account_form"] = AccountForm(data=request.POST)
+
+        # フォーム入力の有効検証
+        if self.params["account_form"].is_valid():
+            # アカウント情報をDB保存
+            account = self.params["account_form"].save()
+            # パスワードをハッシュ化
+            account.set_password(account.password)
+            # ハッシュ化パスワード更新
+            account.save()
+
+            # 画像アップロード有無検証
+            #if 'account_image' in request.FILES:
+            #    add_account.account_image = request.FILES['account_image']
+            # アカウント作成情報更新
+            self.params["AccountCreate"] = True
+            # 成功したら自動でログインし､ホームページへ遷移
+            login(request, account)
+            return HttpResponseRedirect(reverse('home'))
+
+        else:
+            # フォームが有効でない場合
+            print(self.params["account_form"].errors)
+
+        return render(request,"chat/signup.html",context=self.params)
+
 
 class Logout(LogoutView):
     template_name = "chat/logout.html"
@@ -74,7 +117,7 @@ class Logout(LogoutView):
 # simple url define
 def index(request):
     return render(request, "chat/index.html")
-def signup(request):
+#def signup(request):
     return render(request, "chat/signup.html")
 #def login(request):
     #return render(request, "chat/login.html")
