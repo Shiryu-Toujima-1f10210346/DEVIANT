@@ -58,6 +58,7 @@ class PostDetailView(DetailView):
         comment.save()
     #コメントの投稿に成功したらそのページを再表示
         return render(request, 'chat/detail.html', {'post': Post.objects.get(pk=self.kwargs['pk'])})
+    #   https://qlitre-weblog.com/django-create-comment-same-page/
     template_name = "chat/detail.html"
     model = Post
 
