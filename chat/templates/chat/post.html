@@ -13,11 +13,11 @@
     <!--Postモデルを利用した投稿機能-->
     <form action="" method="post"><!--投稿完了を表示させたい-->
       {%csrf_token%}
-        <div class="">
+        {% comment %} <div class="">
         <label for="id_author_name">投稿者名</label>
         <input type="text" name="author" class="" maxlength="24" required
           id="id_author_name" placeholder="あなたの名前">
-      </div>
+      </div> {% endcomment %}
         <div class="">
           <label for="id_title">タイトル</label>
           <input type="text" name="title" maxlength="24" class="" required id="id_title"

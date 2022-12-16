@@ -18,6 +18,33 @@
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
         <br>
     </div>
+
+    <h2>Comments</h2>
+    <form action="{% url 'detail' post.id %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="textInput">Text</label><br>
+        <textarea id="textInput" name="text" rows="3"></textarea>
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    {% if comments %}
+    {% for comment in comments %}
+    <div class="text">
+      <small>[{{ comment.posted_at }}]</small>
+      <div>
+        {{ comment.text | linebreaksbr }}
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No comment.</p>
+    {% endif %}
+  </div>
+    <br><br>
+
     <!--Homeに戻るボタン-->
     <div class="container">
         <a href="/home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homeに戻る</a>

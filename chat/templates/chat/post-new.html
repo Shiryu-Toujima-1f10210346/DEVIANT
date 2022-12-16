@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+{% extends 'chat/header.html' %}
+{% block header %}
+
+<body>
+    <!--Postモデルを利用した投稿機能-->
+    <form action="" method="post"><!--投稿完了を表示させたい-->
+      {%csrf_token%}
+        <div class="">
+          <label for="id_sex">性別</label>
+          <select name="sex" class="" >
+            <option value="男性">男</option>
+            <option value="女性">女</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+        
+        <div class="">
+            <label for="type">種族</label>
+            <select name="type" class="">
+                <option value="人間">人間</option>
+                <option value="人外">人外</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+        
+        <div class="">
+            <label for="state" class="">状態</label>
+            <select name="state" class="">
+                <option value="処分済">処分済</option>
+                <option value="捕獲済">捕獲済</option>
+                <option value="監視中">監視中</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+
+        <div class="">
+          <label for="id_content">概要</label>
+          <textarea name="content" class="" required id="content" rows="10"></textarea>
+        </div>
+        <button type="submit" class="">投稿</button>
+      </form>
+          <script>
+    </script>
+
+</body>
+{% endblock %}
+</html>

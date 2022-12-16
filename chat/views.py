@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from chat.models import Post, Account
-from .forms import AccountForm
+from chat.models import Post, Account , Comment
+from .forms import AccountForm, CommentForm
 from django.views.generic import View, TemplateView, ListView,CreateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
@@ -30,16 +30,43 @@ class PostListView(ListView):
 home = PostListView.as_view()
 
 #Postモデルを使って投稿を作成するビュー
+# class PostCreateView(CreateView):
+#     template_name = 'chat/post.html'
+#     model = Post
+#     fields = ('author', 'title', 'content')
+#     success_url = 'http://localhost:8000/home/'
+
+#投稿の作成を行うビュー
+#authorにアカウントの名前を入れる
+#@login_required
 class PostCreateView(CreateView):
     template_name = 'chat/post.html'
     model = Post
-    fields = ('author', 'title', 'content')
+    fields = ('title','content')
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
     success_url = 'http://localhost:8000/home/'
 
 #投稿の詳細を表示するビュー
 class PostDetailView(DetailView):
+    #POSTメソッドの場合コメントを保存
+    #コメントを投稿したあとはその投稿の詳細ページにリダイレクト
+    #ModelはComment
+    def post(self, request, *args, **kwargs):
+        comment = Comment(comment=Post.objects.get(pk=self.kwargs['pk']), username=request.user, text=request.POST['text'])
+        comment.save()
+    #コメントの投稿に成功したらそのページを再表示
+        return render(request, 'chat/detail.html', {'post': Post.objects.get(pk=self.kwargs['pk'])})
     template_name = "chat/detail.html"
     model = Post
+
+#自分の投稿一覧を表示するビュー
+class MyPostListView(ListView):
+    template_name = 'chat/my_prof.html'
+    model = Post
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user)
 
 def Login(request):
     if request.method == 'POST':
@@ -118,7 +145,6 @@ class  AccountRegistration(TemplateView):
             return HttpResponse("このメールアドレスは既に登録されています")
         return render(request,"chat/signup.html",context=self.params)
 
-
 class Logout(LogoutView):
     template_name = "chat/logout.html"
     next_page = "http://localhost:8000/home"
@@ -132,7 +158,7 @@ def index(request):
     #return render(request, "chat/login.html")
 def others_prof(request):
     return render(request, "chat/others_prof.html")
-def my_prof(request):
+#def my_prof(request):
     return render(request, "chat/my_prof.html")
 def post(request):
     return render(request, "chat/post.html")
