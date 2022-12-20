@@ -46,7 +46,7 @@
     <a href ={% url 'post' %}>投稿する</a>
     {% endif %}
     {% else %}
-    <p>自分の投稿を見るにはログインしてください</p>
+    <p>自分の投稿を見るには<a href={% url 'login' %}><strong>ログイン</strong></a>してください。</p>
     {% endif %}
 
 

@@ -28,20 +28,12 @@ class PostListView(ListView):
                 return Post.objects.order_by("-created_at")
         return Post.objects.order_by("-created_at")
 
-#Postモデルを使って投稿を作成するビュー
-# class PostCreateView(CreateView):
-#     template_name = 'chat/post.html'
-#     model = Post
-#     fields = ('author', 'title', 'content')
-#     success_url = 'http://localhost:8000/home/'
-
 #投稿の作成を行うビュー
 #authorにアカウントの名前を入れる
-#@login_required
 class PostCreateView(CreateView):
     template_name = 'chat/post.html'
     model = Post
-    fields = ('title','content')
+    fields = ('title','sex','looks','type','state','content')
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -74,10 +66,15 @@ class CommentCreateView(CreateView):
 #自分の投稿を削除するビュー
 class PostDeleteView(View):
     def get(self, request, *args, **kwargs):
+        #投稿者とログインユーザーが一致しているか確認
         post = Post.objects.get(pk=self.kwargs['pk'])
         post.delete()
-        
         return HttpResponseRedirect(reverse('home'))
+        #if post.author == self.request.user:
+        #    post.delete()
+        #    return HttpResponseRedirect(reverse('home'))
+        #else:
+        #    return HttpResponseRedirect(reverse('detail'))
 
 #自分の投稿一覧を表示するビュー
 class MyPostListView(ListView):
@@ -86,6 +83,33 @@ class MyPostListView(ListView):
     def get_queryset(self):
         return Post.objects.filter(author=self.request.user)
 
+#自分の投稿を編集するビュー
+class PostEditView(View):
+    def get(self, request, *args, **kwargs):
+        #投稿者とログインユーザーが一致しているか確認
+        if Post.objects.get(pk=self.kwargs['pk']).author == self.request.user:
+            post = Post.objects.get(pk=self.kwargs['pk'])
+            return render(request, 'chat/edit.html', {'post':post})
+        else:
+            return HttpResponseRedirect(reverse('home'))
+
+    def post(self, request, *args, **kwargs):
+        #投稿者とログインユーザーが一致しているか確認
+        if Post.objects.get(pk=self.kwargs['pk']).author == self.request.user:
+            post = Post.objects.get(pk=self.kwargs['pk'])
+            post.title = request.POST['title']
+            post.content = request.POST['content']
+            post.save()
+            return HttpResponseRedirect(reverse('detail', kwargs={'pk': self.kwargs['pk']}))
+        else:
+            return HttpResponseRedirect(reverse('home'))
+
+#投稿をお気に入りに追加するビュー
+
+
+
+
+#ログイン
 def Login(request):
     if request.method == 'POST':
         # フォーム入力のユーザーID・パスワード取得
