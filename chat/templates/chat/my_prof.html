@@ -27,16 +27,27 @@
        
       <br>
     <h1>投稿一覧</h1>
+    {% if user.is_authenticated %}
+    {% if object_list%}
     {% for post in object_list %}
     <div class= "container">
         <p>投稿者:{{ post.author }}</p>
         <h2>タイトル:{{ post.title }}</h2>
         <p>お気に入り数:{{ post.fav_num }}</p>
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
-        <a href = "post/{{ post.id }}">詳細</a>
+        <a href = "../post/{{ post.id }}">詳細</a>
         <br><br>
     </div>
-    {% endfor %}    
+    {% endfor %}
+    {% else %}
+    <p>あなたの投稿はまだありません｡</p>
+    <br>
+    <p>投稿してみませんか？  </p>
+    <a href ={% url 'post' %}>投稿する</a>
+    {% endif %}
+    {% else %}
+    <p>自分の投稿を見るにはログインしてください</p>
+    {% endif %}
 
 
     <script>

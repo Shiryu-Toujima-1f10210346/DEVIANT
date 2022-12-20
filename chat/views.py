@@ -27,7 +27,6 @@ class PostListView(ListView):
             else:
                 return Post.objects.order_by("-created_at")
         return Post.objects.order_by("-created_at")
-home = PostListView.as_view()
 
 #Postモデルを使って投稿を作成するビュー
 # class PostCreateView(CreateView):
@@ -50,17 +49,35 @@ class PostCreateView(CreateView):
 
 #投稿の詳細を表示するビュー
 class PostDetailView(DetailView):
-    #POSTメソッドの場合コメントを保存
-    #コメントを投稿したあとはその投稿の詳細ページにリダイレクト
-    #ModelはComment
-    def post(self, request, *args, **kwargs):
-        comment = Comment(comment=Post.objects.get(pk=self.kwargs['pk']), username=request.user, text=request.POST['text'])
-        comment.save()
-    #コメントの投稿に成功したらそのページを再表示
-        return render(request, 'chat/detail.html', {'post': Post.objects.get(pk=self.kwargs['pk'])})
-    #   https://qlitre-weblog.com/django-create-comment-same-page/
     template_name = "chat/detail.html"
     model = Post
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comment_form"] = CommentForm()
+        return context
+
+#コメントを作成するビュー
+class CommentCreateView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    def form_valid(self, form):
+        #comment_idに投稿のidを入れる
+        form.instance.comment_id = self.kwargs['pk']
+        #usernameにアカウントの名前を入れる 
+        form.instance.username = self.request.user
+        #textにコメントの内容を入れる
+        form.instance.text = form.cleaned_data['text']
+        #保存
+        form.save()
+        return HttpResponseRedirect(reverse('detail', kwargs={'pk': self.kwargs['pk']}))
+
+#自分の投稿を削除するビュー
+class PostDeleteView(View):
+    def get(self, request, *args, **kwargs):
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        post.delete()
+        
+        return HttpResponseRedirect(reverse('home'))
 
 #自分の投稿一覧を表示するビュー
 class MyPostListView(ListView):
@@ -153,14 +170,8 @@ class Logout(LogoutView):
 # simple url define
 def index(request):
     return render(request, "chat/index.html")
-#def signup(request):
-    return render(request, "chat/signup.html")
-#def login(request):
-    #return render(request, "chat/login.html")
 def others_prof(request):
     return render(request, "chat/others_prof.html")
-#def my_prof(request):
-    return render(request, "chat/my_prof.html")
 def post(request):
     return render(request, "chat/post.html")
 def tos(request):

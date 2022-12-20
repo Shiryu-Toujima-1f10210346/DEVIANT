@@ -20,20 +20,11 @@
     </div>
 
     <h2>Comments</h2>
-    <form action="{% url 'detail' post.id %}" method="post">
-      {% csrf_token %}
-      <div>
-        <label for="textInput">Text</label><br>
-        <textarea id="textInput" name="text" rows="3"></textarea>
-      </div>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-    {% if comments %}
-    {% for comment in comments %}
+    {% if post.comments %}
+    {% for comment in post.comments.all %}
     <div class="text">
-      <small>[{{ comment.posted_at }}]</small>
+      <span>{{comment.id}}:{{comment.username}}さん</span>
+      <small>[{{ comment.created_at }}]</small>
       <div>
         {{ comment.text | linebreaksbr }}
       </div>
@@ -44,13 +35,43 @@
     {% endif %}
   </div>
     <br><br>
-
+    {% if request.user.is_authenticated %}
+    <form action="comment/" method="post">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    {% else %}
+    <p>コメントするには<a href={% url 'login' %}><strong>ログイン</strong></a>してください。</p>
+    {% endif %}
+  <br><br>
     <!--Homeに戻るボタン-->
     <div class="container">
         <a href="/home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homeに戻る</a>
-    <script>
-    </script>
+    </div><br><br>
+    <!--削除ボタン-->
+    <!--作者なら表示-->
+    {% if post.author == request.user.username %}
+    <div class="container">
+        <a href="javascript:void(0)" onclick="deletePost()">
+          <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">削除する</button>
+          </a>
+    </div>
+    {% endif %}
 
+    <script>
+      function deletePost(){
+          console.log('delete-post');
+          if(window.confirm('本当に削除しますか？')){
+              location.href = 'delete/';
+          }
+      }
+  
+  </script>
 </body>
 {% endblock %}
+
+
 </html>
