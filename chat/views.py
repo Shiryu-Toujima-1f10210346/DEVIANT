@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from chat.models import Post, Account , Comment
+from chat.models import Post, Comment, FavoriteList
 from .forms import AccountForm, CommentForm
 from django.views.generic import View, TemplateView, ListView,CreateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
 
 #投稿の一覧を表示するビュー
 class PostListView(ListView):
@@ -53,6 +53,11 @@ class CommentCreateView(CreateView):
     model = Comment
     form_class = CommentForm
     def form_valid(self, form):
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        post.comment_num += 1
+        post.save()
+        #post_comment_idにcomment_numを入れる
+        form.instance.post_comment_id = post.comment_num
         #comment_idに投稿のidを入れる
         form.instance.comment_id = self.kwargs['pk']
         #usernameにアカウントの名前を入れる 
@@ -67,14 +72,13 @@ class CommentCreateView(CreateView):
 class PostDeleteView(View):
     def get(self, request, *args, **kwargs):
         #投稿者とログインユーザーが一致しているか確認
+        
         post = Post.objects.get(pk=self.kwargs['pk'])
-        post.delete()
-        return HttpResponseRedirect(reverse('home'))
-        #if post.author == self.request.user:
-        #    post.delete()
-        #    return HttpResponseRedirect(reverse('home'))
-        #else:
-        #    return HttpResponseRedirect(reverse('detail'))
+        if post.author == self.request.user.username:
+            post.delete()
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            return HttpResponseRedirect(reverse('detail'))
 
 #自分の投稿一覧を表示するビュー
 class MyPostListView(ListView):
@@ -104,7 +108,18 @@ class PostEditView(View):
         else:
             return HttpResponseRedirect(reverse('home'))
 
-#投稿をお気に入りに追加するビュー
+#お気に入りにした投稿のfav_numを+1する
+#Favoritelistに投稿のidを保存する
+class FavView(View):
+    def get(self, request, *args, **kwargs):
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        post.fav_num += 1
+        post.save()
+        fav = FavoriteList()
+        fav.post_id = self.kwargs['pk']
+        fav.user_id = self.request.user.id
+        fav.save()
+        return HttpResponseRedirect(reverse('detail', kwargs={'pk': self.kwargs['pk']}))
 
 
 
@@ -155,9 +170,9 @@ class  AccountRegistration(TemplateView):
     def post(self,request):
         self.params["account_form"] = AccountForm(data=request.POST)
         #Email重複していないなら
-        if not Account.objects.filter(email=request.POST.get("email")).exists():
+        if not User.objects.filter(email=request.POST.get("email")).exists():
             #チェックボックスがオンになっているか検証
-            if request.POST.get("checkbox") == "off":
+            if request.POST.get("checkbox") != "checked":
                 return HttpResponse("利用規約に同意してください")
             else:
                 #パスワードが一致しているか検証

@@ -13,17 +13,21 @@
     <div class= "container">
         <p>投稿者:{{ post.author }}</p>
         <h2>タイトル:{{ post.title }}</h2>
+        <p>性別:{{ post.sex }} 容姿:{{ post.looks }} 種族:{{ post.type }} 状態:{{ post.state }}</p>
         <p>本文:{{ post.content }}</p>
         <p>お気に入り数:{{ post.fav_num }}</p>
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
         <br>
     </div>
-
+    <div class="container">
+        <a href={% url 'fav' post.id %}>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">お気に入りに追加</button>
+          </a><br><br>
     <h2>Comments</h2>
     {% if post.comments %}
     {% for comment in post.comments.all %}
     <div class="text">
-      <span>{{comment.id}}:{{comment.username}}さん</span>
+      <span>{{comment.post_comment_id}}:{{comment.username}}さん</span>
       <small>[{{ comment.created_at }}]</small>
       <div>
         {{ comment.text | linebreaksbr }}

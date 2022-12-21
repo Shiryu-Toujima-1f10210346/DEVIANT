@@ -23,7 +23,7 @@ urlpatterns = [
     path("post/<int:pk>/", views.PostDetailView.as_view(), name="detail"),
     path("post/<int:pk>/comment/", views.CommentCreateView.as_view(), name="comment"),
     path("post/<int:pk>/delete/", views.PostDeleteView.as_view(), name="delete"),
-    #path("post/<int:pk>/fav/", views.fav, name="fav"),
+    path("post/<int:pk>/fav/", views.FavView.as_view(), name="fav"),
 
     # 実装しろ
     # はい･･･
