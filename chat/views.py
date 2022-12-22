@@ -46,6 +46,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["comment_form"] = CommentForm()
+        context["favorite"] = FavoriteList.objects.filter(user=self.request.user)
         return context
 
 #コメントを作成するビュー
@@ -110,17 +111,24 @@ class PostEditView(View):
 
 #お気に入りにした投稿のfav_numを+1する
 #Favoritelistに投稿のidを保存する
+#既にお気に入りにしていたらfav_numを-1し､Favoritelistから削除する
 class FavView(View):
     def get(self, request, *args, **kwargs):
         post = Post.objects.get(pk=self.kwargs['pk'])
-        post.fav_num += 1
-        post.save()
-        fav = FavoriteList()
-        fav.post_id = self.kwargs['pk']
-        fav.user_id = self.request.user.id
-        fav.save()
-        return HttpResponseRedirect(reverse('detail', kwargs={'pk': self.kwargs['pk']}))
-
+        fav = FavoriteList.objects.filter(post_id=self.kwargs['pk'], user_id=self.request.user.id)
+        if fav:
+            post.fav_num -= 1
+            post.save()
+            fav.delete()
+            return HttpResponseRedirect(reverse('detail', kwargs={'pk': self.kwargs['pk']}))
+        else:
+            post.fav_num += 1
+            post.save()
+            fav = FavoriteList()
+            fav.post_id = self.kwargs['pk']
+            fav.user_id = self.request.user.id
+            fav.save()
+            return HttpResponseRedirect(reverse('detail', kwargs={'pk': self.kwargs['pk']}))
 
 
 

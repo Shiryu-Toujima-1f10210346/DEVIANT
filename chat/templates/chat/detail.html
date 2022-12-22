@@ -19,10 +19,23 @@
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
         <br>
     </div>
+
+    {% if request.user.is_authenticated %}
+      {% if favorite.exists %}
     <div class="container">
+        <a href={% url 'fav' post.id %}>
+          <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
+          </a><br><br>
+    </div>
+      {% else %}
+      <div class="container">
         <a href={% url 'fav' post.id %}>
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">お気に入りに追加</button>
           </a><br><br>
+    </div>
+      {% endif %}
+    {% endif %}
+
     <h2>Comments</h2>
     {% if post.comments %}
     {% for comment in post.comments.all %}
@@ -48,7 +61,7 @@
       </div>
     </form>
     {% else %}
-    <p>コメントするには<a href={% url 'login' %}><strong>ログイン</strong></a>してください。</p>
+    <p>いいね､又はコメントするには<a href={% url 'login' %}><strong>ログイン</strong></a>してください。</p>
     {% endif %}
   <br><br>
     <!--Homeに戻るボタン-->
