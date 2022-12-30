@@ -30,10 +30,11 @@ class PostListView(ListView):
 
 #投稿の作成を行うビュー
 #authorにアカウントの名前を入れる
+#imgに画像を入れる(Nullを許可する)
 class PostCreateView(CreateView):
     template_name = 'chat/post.html'
     model = Post
-    fields = ('title','sex','looks','type','state','content')
+    fields = ('title','sex','looks','type','state','content','img')
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)

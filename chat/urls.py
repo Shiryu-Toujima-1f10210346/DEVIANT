@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path("", views.index, name="index"),
     path("signup/", views.AccountRegistration.as_view(), name="singup"),
@@ -27,7 +28,8 @@ urlpatterns = [
 
     # 実装しろ
     # はい･･･
-    # path("post/<int:pk>/unfav/", views.unfav, name="unfav"),
-    # path("post/<int:pk>/favlist/", views.favlist, name="favlist"),
+    #path("post/<int:pk>/favlist/", views.favlist, name="favlist"),
     path("post/<int:pk>/edit/", views.PostEditView.as_view(), name="edit"),
     ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

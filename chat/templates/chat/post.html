@@ -13,7 +13,7 @@
   {% if request.user.is_authenticated %}
 
  <!--Postモデルを利用した投稿機能-->
- <form action="" method="post"><!--投稿完了を表示させたい-->
+ <form action="" method="post" enctype="multipart/form-data"><!--投稿完了を表示させたい-->
   {%csrf_token%}
     <div class="">
       <label for="title">タイトル</label>
@@ -65,6 +65,11 @@
     <div class="">
       <label for="id_content">概要</label>
       <textarea name="content" class="" required id="content" rows="10"></textarea>
+    </div>
+
+    <div class="">
+      <label for="id_image">画像</label>
+      <input type="file" name="img" class="" required id="img" accept="image/*">
     </div>
     <button type="submit" class="">報告</button>
   </form>
