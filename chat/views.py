@@ -28,6 +28,17 @@ class PostListView(ListView):
                 return Post.objects.order_by("-created_at")
         return Post.objects.order_by("-created_at")
 
+#お気に入り一覧を表示するビュー
+class FavListView(ListView):
+    template_name = 'chat/home.html'
+    model = Post
+    def get_queryset(self):
+        fav_list = FavoriteList.objects.filter(user_id=self.request.user.id)
+        fav_post = []
+        for fav in fav_list:
+            fav_post.append(Post.objects.get(pk=fav.post_id))
+        return fav_post
+
 #投稿の作成を行うビュー
 #authorにアカウントの名前を入れる
 #imgに画像を入れる(Nullを許可する)
@@ -47,7 +58,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["comment_form"] = CommentForm()
-        context["favorite"] = FavoriteList.objects.filter(user=self.request.user)
+        context["favorite"] = FavoriteList.objects.filter(user_id=self.request.user.id, post_id=self.kwargs['pk'])
         return context
 
 #コメントを作成するビュー
@@ -133,6 +144,10 @@ class FavView(View):
 
 
 
+
+############################################
+############ログイン･ログアウト処理###########
+############################################
 #ログイン
 def Login(request):
     if request.method == 'POST':

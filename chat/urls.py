@@ -15,6 +15,8 @@ urlpatterns = [
     path("post/", views.PostCreateView.as_view(), name="post"),
     path("tos/", views.tos, name="tos"),
     path("forgotpass/", views.forgotpass, name="forgotpass"),
+    path("favlist/", views.FavListView.as_view(), name="favlist"),
+
 
     path("chat/", views.chat, name="chat"),
     path("chat/<str:room_name>/", views.room, name="room"),
@@ -25,10 +27,6 @@ urlpatterns = [
     path("post/<int:pk>/comment/", views.CommentCreateView.as_view(), name="comment"),
     path("post/<int:pk>/delete/", views.PostDeleteView.as_view(), name="delete"),
     path("post/<int:pk>/fav/", views.FavView.as_view(), name="fav"),
-
-    # 実装しろ
-    # はい･･･
-    #path("post/<int:pk>/favlist/", views.favlist, name="favlist"),
     path("post/<int:pk>/edit/", views.PostEditView.as_view(), name="edit"),
     ]
 if settings.DEBUG:
