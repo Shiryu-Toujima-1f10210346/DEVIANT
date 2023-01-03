@@ -17,7 +17,7 @@
         <p>本文:{{ post.content }}</p>
         <p>画像:</p>
         <img src="/media/{{ post.img }}" width="300" height="300">
-        <p>お気に入り数:{{ post.fav_num }}</p>
+        <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
         <br>
     </div>

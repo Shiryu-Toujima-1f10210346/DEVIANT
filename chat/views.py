@@ -49,14 +49,19 @@ class PostCreateView(CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    success_url = 'http://localhost:8000/home/'
+    #homeにリダイレクト
+    success_url = 'home'
 
 #投稿の詳細を表示するビュー
+#PVを1増やす
 class PostDetailView(DetailView):
     template_name = "chat/detail.html"
     model = Post
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        post.pv += 1
+        post.save()
         context["comment_form"] = CommentForm()
         context["favorite"] = FavoriteList.objects.filter(user_id=self.request.user.id, post_id=self.kwargs['pk'])
         return context
@@ -228,7 +233,7 @@ class  AccountRegistration(TemplateView):
 
 class Logout(LogoutView):
     template_name = "chat/logout.html"
-    next_page = "http://localhost:8000/home"
+    next_page = "home"
 
 # simple url define
 def index(request):

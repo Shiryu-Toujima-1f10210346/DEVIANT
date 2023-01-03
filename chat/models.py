@@ -14,6 +14,7 @@ class Post(models.Model):
     fav_num = models.IntegerField(default=0)
     comment_num = models.IntegerField(default=0)
     img = models.ImageField(blank=True, null=True, upload_to='post-image/')
+    pv = models.IntegerField(default=0)
     def __str__(self):
         return self.title
     def post(self):

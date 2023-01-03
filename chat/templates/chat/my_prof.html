@@ -10,19 +10,20 @@
 {% block header %}
 
 <body>
+  <span>
     <div class="">
-        <a type="button" href="http://localhost:8000/home/?order=popular" class="btn btn-info">人気順</a>
+        <a type="button" href="{%url "home"%}?order=popular" class="btn btn-info">人気順</a>
       </div>
       <div class="">
-        <a type="button" href="http://localhost:8000/home/?order=veiled" class="btn btn-info">発掘</a>
+        <a type="button" href="{%url "home"%}?order=veiled" class="btn btn-info">発掘</a>
       </div> 
       <div class="">
-        <a type="button" href="http://localhost:8000/home/?order=new" class="btn btn-info">新着順</a>
+        <a type="button" href="{%url "home"%}?order=new" class="btn btn-info">新着順</a>
       </div>
       <div class="">
-        <a type="button" href="http://localhost:8000/home/?order=old" class="btn btn-info">古い順</a>
+        <a type="button" href="{%url "home"%}?order=old" class="btn btn-info">古い順</a>
       </div>
-      
+    </span>
       
        
       <br>

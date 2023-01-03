@@ -10,28 +10,29 @@
 {% block header %}
 
 <body>
+  <span>
     <div class="">
-        <a type="button" href="http://localhost:8000/home/?order=popular" class="btn btn-info">人気順</a>
+        <a type="button" href="{%url "home"%}?order=popular" class="btn btn-info">人気順</a>
       </div>
       <div class="">
-        <a type="button" href="http://localhost:8000/home/?order=veiled" class="btn btn-info">発掘</a>
+        <a type="button" href="{%url "home"%}?order=veiled" class="btn btn-info">発掘</a>
       </div> 
       <div class="">
-        <a type="button" href="http://localhost:8000/home/?order=new" class="btn btn-info">新着順</a>
+        <a type="button" href="{%url "home"%}?order=new" class="btn btn-info">新着順</a>
       </div>
       <div class="">
-        <a type="button" href="http://localhost:8000/home/?order=old" class="btn btn-info">古い順</a>
+        <a type="button" href="{%url "home"%}?order=old" class="btn btn-info">古い順</a>
       </div>
-      
-      
-       
-      <br>
+    </span>
+  
+  <br>
+
     <h1>投稿一覧</h1>
     {% for post in object_list %}
     <div class= "container">
         <p>投稿者:{{ post.author }}</p>
         <h2>タイトル:{{ post.title }}</h2>
-        <p>お気に入り数:{{ post.fav_num }}</p>
+        <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
         <a href = "../post/{{ post.id }}">詳細</a>
         <br><br>
