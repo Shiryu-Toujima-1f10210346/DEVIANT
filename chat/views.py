@@ -50,7 +50,7 @@ class PostCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     #homeにリダイレクト
-    success_url = 'home'
+    success_url = '/home/'
 
 #投稿の詳細を表示するビュー
 #PVを1増やす
