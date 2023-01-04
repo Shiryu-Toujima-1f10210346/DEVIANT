@@ -53,7 +53,7 @@
       <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
         {% if request.resolver_match.url_name == 'home' %}
         <li>
-          <a href="{% url "home" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0" aria-current="page">ㅤㅤㅤHOMEㅤㅤㅤ
+          <a href="{% url "home" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0" aria-current="page">ㅤㅤㅤHOMEㅤㅤㅤ
           </a>
         </li>
         {% else %}
@@ -63,7 +63,7 @@
         {% endif %}
         {% if request.resolver_match.url_name == 'post' %}
         <li>
-          <a href="{% url "post" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">ㅤㅤㅤPOSTㅤㅤㅤ
+          <a href="{% url "post" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0">ㅤㅤㅤPOSTㅤㅤㅤ
           </a>
         </li>
         {% else %}
@@ -73,7 +73,7 @@
         {% endif %}
         {% if request.resolver_match.url_name == 'my_prof' %}
         <li>
-          <a href="{% url "my_prof" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">ㅤㅤㅤPROFILEㅤㅤㅤ
+          <a href="{% url "my_prof" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0">ㅤㅤㅤPROFILEㅤㅤㅤ
           </a>
         </li>
         {% else %}
@@ -83,7 +83,7 @@
         {% endif %}
         {% if request.resolver_match.url_name == 'chat' %}
         <li>
-          <a href="{% url "chat" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">ㅤㅤㅤCHATㅤㅤㅤ
+          <a href="{% url "chat" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0">ㅤㅤㅤCHATㅤㅤㅤ
           </a>
         </li>
         {% else %}
@@ -93,7 +93,7 @@
         {% endif %}
         {% if request.resolver_match.url_name == 'favlist' %}
         <li>
-          <a href="{% url "favlist" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">ㅤㅤㅤFAVㅤㅤㅤ
+          <a href="{% url "favlist" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0">ㅤㅤㅤFAVㅤㅤㅤ
           </a>
         </li>
         {% else %}
