@@ -1,51 +1,83 @@
 <!DOCTYPE html>
-
+{% extends 'chat/header.html' %}
+{% load static %}
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>Home</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    
 </head>
-{% extends 'chat/header.html' %}
+
 {% block header %}
 
-<body>
-  <span>
-    <div class="">
-        <a type="button" href="{%url "home"%}?order=popular" class="btn btn-info">人気順</a>
-      </div>
-      <div class="">
-        <a type="button" href="{%url "home"%}?order=veiled" class="btn btn-info">発掘</a>
-      </div> 
-      <div class="">
-        <a type="button" href="{%url "home"%}?order=new" class="btn btn-info">新着順</a>
-      </div>
-      <div class="">
+<body class="m-4 p-4 bg-gray-200">
+  <span class="
+  lg:text-xl
+  ">
+    <span>
+        <a type="button" href="{%url "home"%}?order=popular" class="btn btn-info">人気順 </a>
+      </span>
+      <span class="">
+        <a type="button" href="{%url "home"%}?order=veiled" class="btn btn-info">発掘 </a>
+      </span> 
+      <span class="">
+        <a type="button" href="{%url "home"%}?order=new" class="btn btn-info">新着順 </a>
+      </span>
+      <span class="">
         <a type="button" href="{%url "home"%}?order=old" class="btn btn-info">古い順</a>
-      </div>
-    </span>
-      
-       
-      <br>
+      </span>
+    </span> 
+  
+  <br><br>
+
     <h1>投稿一覧</h1>
+    <div class="
+    grid 
+    grid-cols-1 text-3xl
+    sm:grid-cols-2 sm:text-2xl
+    md:grid-cols-3 md:text-xl
+    lg:grid-cols-4 lg:text-lg
+    gap-3
+    pr-4
+    ">
     {% if user.is_authenticated %}
-    {% if object_list%}
-    {% for post in object_list %}
-    <div class= "container">
-        <p>投稿者:{{ post.author }}</p>
-        <h2>タイトル:{{ post.title }}</h2>
-        <p>お気に入り数:{{ post.fav_num }}</p>
-        <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
-        <a href = "../post/{{ post.id }}">詳細</a>
-        <br><br>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p>あなたの投稿はまだありません｡</p>
-    <br>
-    <p>投稿してみませんか？  </p>
-    <a href ={% url 'post' %}>投稿する</a>
-    {% endif %}
+      {% if object_list %}
+        {% for post in object_list %}
+        <div class= "
+        bg-white
+        post
+        container 
+        border border-blue-700 border-solid border-b-4 border-r-4 rounded-lg
+        m-4 p-4
+        shadow-lg
+        ">
+
+
+        <span class="
+        text-4xl
+        sm:text-3xl
+        md:text-2xl
+        lg:text-xl
+        ">
+            <p>投稿者:{{ post.author }}</p>
+            <h2>タイトル:{{ post.title }}</h2>
+        </span>
+
+            <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
+            <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+            <br>
+            <div style="text-align:right;"><a href = "../post/{{ post.id }}">詳細</a></div>
+        </div>
+        {% endfor %}
+      {% else %}
+      <p>あなたの投稿はまだありません｡</p>
+      <br>
+      <p>投稿してみませんか？  </p>
+      <a href ={% url 'post' %}>投稿する</a>
+      {% endif %}
     {% else %}
     <p>自分の投稿を見るには<a href={% url 'login' %}><strong>ログイン</strong></a>してください。</p>
     {% endif %}
