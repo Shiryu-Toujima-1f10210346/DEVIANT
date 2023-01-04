@@ -9,82 +9,93 @@
 {% extends 'chat/header.html' %}
 {% block header %}
 
-<body>
-  {% if request.user.is_authenticated %}
-
+<body class="" >
+{% if request.user.is_authenticated %}
  <!--Postモデルを利用した投稿機能-->
- <form action="" method="post" enctype="multipart/form-data"><!--投稿完了を表示させたい-->
-  {%csrf_token%}
-    <div class="">
-      <label for="title">タイトル</label>
-      <input type="title" name="title" class="" required id="title">
-    </div>
+ <form action="" method="post" enctype="multipart/form-data" class="bg-slate-100 shadow-xl m-4 border-b-8 border-r-8 border-t border-l border-gray-100 rounded-lg font-mono"><!--投稿完了を表示させたい-->
+{%csrf_token%}
+<div class="m-3">
 
-    <div class="">
-      <label for="id_sex">性別</label>
-      <select name="sex" class="" required >
-        <option value="" disabled selected>--- 性別を選択 ---</option>
-        <option value="男性">男</option>
-        <option value="女性">女</option>
-        <option value="その他">その他</option>
-      </select>
-    </div>
-    
-    <div class="">
-      <label for="looks">分類</label>
-      <select name="looks" class="" required>
-          <option value="" disabled selected>--- 分類を選択 ---</option>
-          <option value="かっこいい">COOL</option>
-          <option value="かわいい">CUTE</option>
-          <option value="美しい">BEAUTIFUL</option>
-          <option value="その他">その他</option>
-      </select>
-  </div>
+<div name="上部分" class="grid grid-cols-2">
+    <div name="左"class="">
+        <label for="id_image">画像</label>
+        <input type="file" name="img" class="w-full" id="img" accept="image/*">
+      </div>
 
-    <div class="">
-        <label for="type">種族</label>
-        <select name="type" class="" required>
-            <option value="" disabled selected>--- 種族を選択 ---</option>
-            <option value="人間">人間</option>
-            <option value="人外">人外</option>
+  <div name="右" class="container mx-16">
+
+
+        <div class="m-2">
+          <label for="title">名前</label>
+          <input type="title" name="title" class="" required id="title">
+        </div>
+
+        <div class="m-2">
+          <label for="id_sex">性別</label>
+          <select name="sex" class="" required >
+            <option value="" disabled selected>--- 性別を選択 ---</option>
+            <option value="男性">男</option>
+            <option value="女性">女</option>
             <option value="その他">その他</option>
-        </select>
+          </select>
+        </div>
+        
+        <div class="m-2">
+          <label for="looks">分類</label>
+          <select name="looks" class="" required>
+              <option value="" disabled selected>--- 分類を選択 ---</option>
+              <option value="かっこいい">COOL</option>
+              <option value="かわいい">CUTE</option>
+              <option value="美しい">BEAUTIFUL</option>
+              <option value="その他">その他</option>
+          </select>
+      </div>
+
+        <div class="m-2">
+            <label for="type">種族</label>
+            <select name="type" class="" required>
+                <option value="" disabled selected>--- 種族を選択 ---</option>
+                <option value="人間">人間</option>
+                <option value="人外">人外</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+        
+        <div class="m-2">
+            <label for="state" class="">状態</label>
+            <select name="state" class="" required>
+              <option value="" disabled selected>--- 状態を選択 ---</option>
+                <option value="処分済">処分済</option>
+                <option value="捕獲済">捕獲済</option>
+                <option value="監視中">監視中</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+  </div name="右">
+
+</div name="上部分">
+
+    <div class="">
+      <p class="text-xl">報告内容</p>
+      <label for="id_content"></label>
+      <textarea name="content" class="w-full resize-none text-2xl rounded-2xl border border-gray-300" required id="content" rows="10" ></textarea>
     </div>
+
     
-    <div class="">
-        <label for="state" class="">状態</label>
-        <select name="state" class="" required>
-          <option value="" disabled selected>--- 状態を選択 ---</option>
-            <option value="処分済">処分済</option>
-            <option value="捕獲済">捕獲済</option>
-            <option value="監視中">監視中</option>
-            <option value="その他">その他</option>
-        </select>
-    </div>
+    <div class="" style="text-align:right;"><button type="submit" class="border-2 border-gray-400 rounded pr-2 pl-2">報告</button></div>
+</div>
 
-    <div class="">
-      <label for="id_content">概要</label>
-      <textarea name="content" class="" required id="content" rows="10"></textarea>
-    </div>
-
-    <div class="">
-      <label for="id_image">画像</label>
-      <input type="file" name="img" class="" id="img" accept="image/*">
-    </div>
-    <button type="submit" class="">報告</button>
   </form>
 
-    {% else %}
+
+
+
+{% else %}
     <p>投稿するには<a href={% url 'login' %}><strong>ログイン</strong></a>してください。</p>
-    {% endif %}
+{% endif %}
 
 
-
-   
-
-
-
-          <script>
+ <script>
     </script>
 
 </body>

@@ -15,14 +15,14 @@
         <h2>タイトル:{{ post.title }}</h2>
         <p>性別:{{ post.sex }} 容姿:{{ post.looks }} 種族:{{ post.type }} 状態:{{ post.state }}</p>
         <p>本文:{{ post.content }}</p>
-        {% if post.img.exists %}
+
+        {% if post.img %}
         <p>画像:</p>
         <img src="/media/{{ post.img }}" width="300" height="300">
         {% else %}
         <p>No Image</p>
         {% comment %} <img src="/media/NoImage" width="300" height="300"> {% endcomment %}
         {% endif %}
-
         <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
         <br>

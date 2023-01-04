@@ -41,12 +41,14 @@ class FavListView(ListView):
 
 #投稿の作成を行うビュー
 #authorにアカウントの名前を入れる
-#imgに画像を入れる(Nullを許可する)
+#imgが空の場合はNoneを入れ
 class PostCreateView(CreateView):
     template_name = 'chat/post.html'
     model = Post
     fields = ('title','sex','looks','type','state','content','img')
     def form_valid(self, form):
+        if form.instance.img == "":
+            form.instance.img = None
         form.instance.author = self.request.user
         return super().form_valid(form)
     #homeにリダイレクト
@@ -60,8 +62,9 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = Post.objects.get(pk=self.kwargs['pk'])
-        post.pv += 1
-        post.save()
+        if post.author != self.request.user.username:
+            post.pv += 1
+            post.save()
         context["comment_form"] = CommentForm()
         context["favorite"] = FavoriteList.objects.filter(user_id=self.request.user.id, post_id=self.kwargs['pk'])
         return context
@@ -100,7 +103,7 @@ class PostDeleteView(View):
 
 #自分の投稿一覧を表示するビュー
 class MyPostListView(ListView):
-    template_name = 'chat/my_prof.html'
+    template_name = 'chat/home.html'
     model = Post
     def get_queryset(self):
         return Post.objects.filter(author=self.request.user)

@@ -33,7 +33,7 @@
   
   <br><br>
 
-    <h1>投稿一覧</h1>
+<h1>投稿一覧</h1>
     <div class="
     grid 
     grid-cols-1 text-3xl
@@ -41,36 +41,60 @@
     md:grid-cols-3 md:text-xl
     lg:grid-cols-4 lg:text-lg
     gap-3
-    pr-4
-    ">
-    {% for post in object_list %}
-    <div class= "
-    bg-white
-    post
-    container 
-    border border-blue-700 border-solid border-b-4 border-r-4 rounded-lg
-    m-4 p-4
-    shadow-lg
-    ">
-
-
-    <span class="
-    text-4xl
-    sm:text-3xl
-    md:text-2xl
-    lg:text-xl
-    ">
-        <p>投稿者:{{ post.author }}</p>
-        <h2>タイトル:{{ post.title }}</h2>
-    </span>
-
-        <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
-        <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+    pr-4">
+    {% if object_list %}
+      {% for post in object_list %}
+      <div class= "
+      bg-white
+      post
+      container 
+      border border-gray-700 border-solid border-t-2 border-l-2 border-b-8 border-r-8 rounded-lg
+      m-4 p-4
+      hover:shadow-2xl
+      ">
+    
+    
+      <span class="
+      text-4xl
+      sm:text-3xl
+      md:text-2xl
+      lg:text-xl
+      ">
+          <p>投稿者:{{ post.author }}</p>
+          <h2>タイトル:{{ post.title }}</h2>
+      </span>
+    
+          <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
+          <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+          <br>
+          <div style="text-align:right;"><a href = "../post/{{ post.id }}">詳細</a></div>
+    </div>
+  
+      {% endfor %}    
+    </div>
+    {% elif request.resolver_match.url_name == 'home'%}
+    </div>
+      <p>投稿はまだありません｡</p>
+      <br>
+      <p>最初の投稿者になりませんか？</p>
+      <a href ={% url 'post' %}>投稿する</a>
+    
+    {% elif request.resolver_match.url_name == 'my_prof'%}
+  </div>
+      <p>あなたの投稿はまだありません｡</p>
         <br>
-        <div style="text-align:right;"><a href = "../post/{{ post.id }}">詳細</a></div>
-    </div>
-    {% endfor %}    
-    </div>
+        <p>投稿してみませんか？  </p>
+      <a href ={% url 'post' %}>投稿する</a>
+    {% endif %}
+
+
+    
+    
+
+
+
+
+
     <script>
     </script>
 
