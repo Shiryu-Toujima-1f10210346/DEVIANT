@@ -24,19 +24,19 @@
 
       <div class="max-w-xl">
         <label
-            class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+            class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none text-2xl" id="dropArea">
             <span class="flex items-center space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                 </svg>
-                <span class="font-medium text-gray-600">
-                    ファイルをドロップ､または
+                <span class="font-medium text-gray-600" id="UploadField">
+                    画像をドロップ､または
                     <span class="text-blue-600 underline">選択</span>
                 </span>
             </span>
-            <input type="file" name="file_upload" class="hidden">
+            <input type="file" name="img" class="hidden" id="img" accept="image/*">
         </label>
         <div class="m-2 text-2xl">
           <label for="title">撮影詳細</label>
@@ -121,6 +121,62 @@
 
 
  <script>
+ // ドラッグ&ドロップエリアの取得
+var fileArea = document.getElementById('dropArea');
+
+// input[type=file]の取得
+var fileInput = document.getElementById('img');
+
+// ドラッグオーバー時の処理
+fileArea.addEventListener('dragover', function(e){
+    e.preventDefault();
+    fileArea.classList.add('dragover');
+});
+
+// ドラッグアウト時の処理
+fileArea.addEventListener('dragleave', function(e){
+    e.preventDefault();
+    fileArea.classList.remove('dragover');
+});
+
+// ドロップ時の処理
+fileArea.addEventListener('drop', function(e){
+    e.preventDefault();
+    fileArea.classList.remove('dragover');
+
+    // ドロップしたファイルの取得
+    var files = e.dataTransfer.files;
+
+    // 取得したファイルをinput[type=file]へ
+    fileInput.files = files;
+    
+    if(typeof files[0] !== 'undefined') {
+        //ファイルが正常に受け取れた際の処理
+        //id=UploadFieldにファイル名を表示
+        var fileName = document.getElementById('UploadField');
+        fileName.innerHTML = files[0].name;
+        //枠に収まるようにプレビュー表示
+        var area = document.getElementById('dropArea');
+        var img = document.createElement('img');
+        img.src = window.URL.createObjectURL(files[0]);
+        img.width = 200;
+        img.height = 200;
+        area.appendChild(img);
+    } else {
+        //ファイルが受け取れなかった際の処理
+    }
+});
+
+// input[type=file]に変更があれば実行
+fileInput.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    
+    if(typeof e.target.files[0] !== 'undefined') {
+        // ファイルが正常に受け取れた際の処理
+    } else {
+        // ファイルが受け取れなかった際の処理
+    }
+}, false);
     </script>
 
 </body>
