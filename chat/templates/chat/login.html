@@ -11,11 +11,10 @@
     <title>Login</title>
 	<meta name="author" content="David Grzyb">
     <meta name="description" content="">
-    
+    {% block script %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-    <!--link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet"-->
-    
+    {% endblock %}
     <style>
         .body-bg {
             background-color: #9921e8;

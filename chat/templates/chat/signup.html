@@ -7,14 +7,16 @@
 <head>
     <meta charset="utf-8"/>
     <title>Sign up</title>
+    {% block script %}
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+    {% endblock %}
 </head>
 
 <body>
 
     <!-- Section: Design Block -->
-    <section class="h-screen"  id="main">
+    <section class="mt-16"  id="main">
       <span class="px-6 h-full text-gray-800">
         <div
           class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"

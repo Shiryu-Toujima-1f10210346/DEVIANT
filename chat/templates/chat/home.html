@@ -5,19 +5,32 @@
 <head>
     <meta charset="utf-8"/>
     <title>{% block title %}Home{% endblock title %}</title>
-    
+    {% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="{% static 'css/load.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     
+    {% endblock %}
 </head>
 
 {% block header %}
 
-<body class="m-4 p-4 bg-gray-200">
-  <span class="
+<body class="bg-gray-200">
+  
+  {% comment %} ここからローディング画面 {% endcomment %}
+  <div class="w-full h-full bg-white cover"style="z-index:5; position:fixed;"></div>
+  <div class="w-full h-full loaderBox"style="z-index:7; position:fixed;">
+    <div class="loader">loading...</div>
+  </div>
+  {% comment %} ここまでローディング画面 {% endcomment %}
+
+
+  <div class="
+  p-4 m-4
   lg:text-xl
   ">
-  <div class="p-3 bg-gray-300 border rounded-lg">
+  <div class="p-4 m-4 bg-gray-300 border rounded-lg">
     <span class="m-2 text-3xl ">
         <a type="button" href="{%url "home"%}?order=popular" class="btn btn-info">人気順 </a>
       </span>
@@ -63,6 +76,8 @@
       sm:text-3xl
       md:text-2xl
       lg:text-xl
+      m-4
+      p-4
       ">
           <p>投稿者:{{ post.author }}</p>
           <h2>タイトル:{{ post.title }}</h2>
@@ -92,14 +107,47 @@
     {% endif %}
 
 
-    
-    
-
-
-
-
-
     <script>
+      ScrollReveal().reveal('.post', {
+        delay: 150,
+        rotate: { x: 0, y: 0, z: 10 },
+        reset: false,
+        origin: 'right',
+        viewFactor: 0.2,
+        duration: 1000,
+        distance: '50px',
+ });
+
+
+
+  $(function(){
+	var cover = $('.cover');
+  var loader = $('.loader');
+  var loaderBox = $('.loaderBox');
+
+	//ページの読み込みが完了したらアニメーションを非表示
+	$(window).on('load',function(){
+		cover.delay(200).fadeOut(200);
+	});
+
+	//ページの読み込みが完了してなくても3秒後にアニメーションを非表示にする
+	setTimeout(function(){
+		cover.fadeOut();
+	},3000);
+//////////////////////LOADER///////////////////////////
+  $(window).on('load',function(){
+		loader.delay(300).fadeOut(300);
+    loaderBox.delay(300).fadeOut(300);
+	});
+
+	setTimeout(function(){
+		loader.fadeOut();
+    loaderBox.fadeOut();
+	},3000);
+  });
+
+
+
     </script>
 
 </body>

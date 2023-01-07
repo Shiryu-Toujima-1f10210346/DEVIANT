@@ -1,15 +1,27 @@
 <!DOCTYPE html>
-
+{% extends 'chat/header.html' %}
+{% load static %}
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Chat</title>
+    <title>{% block title %}投稿{% endblock %}</title>
+    {%block script%}
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/loadBlack.css' %}">
+    {%endblock%}
 </head>
-{% extends 'chat/header.html' %}
 {% block header %}
 
 <body class="" >
+
+{% comment %} ここからローディング画面 {% endcomment %}
+<div class="w-full h-full bg-gray-500 cover"style="z-index:5; position:fixed;"></div>
+<div class="w-full h-full loaderBox"style="z-index:7; position:fixed;">
+  <div class="loader">loading...</div>
+</div>
+{% comment %} ここまでローディング画面 {% endcomment %}
+
 {% if request.user.is_authenticated %}
  <!--Postモデルを利用した投稿機能-->
  <form action="" method="post" enctype="multipart/form-data" class="bg-slate-100 shadow-xl m-4 border-b-8 border-r-8 border-t border-l border-gray-100 rounded-lg font-mono"><!--投稿完了を表示させたい-->
@@ -33,7 +45,7 @@
                 </svg>
                 <span class="font-medium text-gray-600" id="UploadField">
                     画像をドロップ､または
-                    <span class="text-blue-600 underline">選択</span>
+                    <span class="text-blue-600 hover:underline">選択</span>
                 </span>
             </span>
             <input type="file" name="img" class="hidden" id="img" accept="image/*">
@@ -177,6 +189,34 @@ fileInput.addEventListener('change', function(e){
         // ファイルが受け取れなかった際の処理
     }
 }, false);
+
+$(function(){
+	var cover = $('.cover');
+  var loader = $('.loader');
+  var loaderBox = $('.loaderBox');
+
+	//ページの読み込みが完了したらアニメーションを非表示
+	$(window).on('load',function(){
+		cover.delay(200).fadeOut(200);
+	});
+
+	//ページの読み込みが完了してなくても3秒後にアニメーションを非表示にする
+	setTimeout(function(){
+		cover.fadeOut();
+	},3000);
+//////////////////////LOADER///////////////////////////
+  $(window).on('load',function(){
+		loader.delay(300).fadeOut(300);
+    loaderBox.delay(300).fadeOut(300);
+	});
+
+	setTimeout(function(){
+		loader.fadeOut();
+    loaderBox.fadeOut();
+	},3000);
+  });
+
+
     </script>
 
 </body>

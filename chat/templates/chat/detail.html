@@ -5,8 +5,10 @@
 <head>
     <meta charset="utf-8"/>
     <title>{% block title %}Detail{% endblock title %}</title>
+    {% block script %}
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+    {% endblock %}
+  </head>
 {% block header %}
 
 <body>
@@ -20,7 +22,7 @@
         <p>画像:</p>
         <img src="/media/{{ post.img }}" width="300" height="300">
         {% else %}
-        <img src="{% static 'img/NoImage.png' %}" width="300" height="300">
+        <img src="{% static 'img/NoImage.jpg' %}" width="300" height="300">
         {% endif %}
         <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
