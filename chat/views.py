@@ -24,6 +24,8 @@ class PostListView(ListView):
                 return Post.objects.order_by("fav_num")
             elif self.request.GET["order"] == "old":
                 return Post.objects.order_by("created_at")
+            elif self.request.GET["order"] == "pv":
+                return Post.objects.order_by("-pv")
             else:
                 return Post.objects.order_by("-created_at")
         return Post.objects.order_by("-created_at")

@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Home</title>
+    <title>{% block title %}Home{% endblock title %}</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
@@ -17,7 +17,7 @@
   <span class="
   lg:text-xl
   ">
-  <div class="p-3 bg-gray-300 border rounded-b">
+  <div class="p-3 bg-gray-300 border rounded-lg">
     <span class="m-2 text-3xl ">
         <a type="button" href="{%url "home"%}?order=popular" class="btn btn-info">人気順 </a>
       </span>
@@ -29,6 +29,9 @@
       </span>
       <span class="m-2 text-3xl">
         <a type="button" href="{%url "home"%}?order=old" class="btn btn-info">古い順</a>
+      </span>
+      <span class="m-2 text-3xl">
+        <a type="button" href="{%url "home"%}?order=pv" class="btn btn-info">閲覧数順</a>
       </span>
     </span> 
   </div>

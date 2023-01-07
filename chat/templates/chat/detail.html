@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-
+{% extends 'chat/header.html' %}
+{% load static %}
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Home</title>
+    <title>{% block title %}Detail{% endblock title %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-{% extends 'chat/header.html' %}
 {% block header %}
 
 <body>
@@ -20,8 +20,7 @@
         <p>画像:</p>
         <img src="/media/{{ post.img }}" width="300" height="300">
         {% else %}
-        <p>No Image</p>
-        {% comment %} <img src="/media/NoImage" width="300" height="300"> {% endcomment %}
+        <img src="{% static 'img/NoImage.png' %}" width="300" height="300">
         {% endif %}
         <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-
+{% extends 'chat/header.html' %}
+{% load static %}
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Chat</title>
+    <title>{% block title %}Chat{% endblock title %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-{% extends 'chat/header.html' %}
 {% block header %}
 
 <body>
