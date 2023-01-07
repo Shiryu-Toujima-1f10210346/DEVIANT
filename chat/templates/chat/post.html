@@ -38,17 +38,24 @@
             </span>
             <input type="file" name="file_upload" class="hidden">
         </label>
+        <div class="m-2 text-2xl">
+          <label for="title">撮影詳細</label>
+          <input type="title" name="title" class="w-full resize-none text-base border border-gray-300" >
+          <div class="mt-2 m-2 text-sm">
+            <p>※35文字以内</p>
+          </div>
+        </div>
     </div>
 
   <div name="右" class="container mx-16">
 
 
-        <div class="m-2">
+        <div class="m-2 text-3xl">
           <label for="title">名前</label>
           <input type="title" name="title" class="" required id="title">
         </div>
 
-        <div class="m-2">
+        <div class="m-2 text-3xl">
           <label for="id_sex">性別</label>
           <select name="sex" class="" required >
             <option value="" disabled selected>--- 性別を選択 ---</option>
@@ -58,7 +65,7 @@
           </select>
         </div>
         
-        <div class="m-2">
+        <div class="m-2 text-3xl">
           <label for="looks">分類</label>
           <select name="looks" class="" required>
               <option value="" disabled selected>--- 分類を選択 ---</option>
@@ -69,7 +76,7 @@
           </select>
       </div>
 
-        <div class="m-2">
+        <div class="m-2 text-3xl">
             <label for="type">種族</label>
             <select name="type" class="" required>
                 <option value="" disabled selected>--- 種族を選択 ---</option>
@@ -79,7 +86,7 @@
             </select>
         </div>
         
-        <div class="m-2">
+        <div class="m-2 text-3xl">
             <label for="state" class="">状態</label>
             <select name="state" class="" required>
               <option value="" disabled selected>--- 状態を選択 ---</option>
@@ -94,9 +101,9 @@
 </div name="上部分">
 
     <div class="">
-      <p class="text-xl">報告内容</p>
+      <p class="mt-5 text-3xl">報告内容</p>
       <label for="id_content"></label>
-      <textarea name="content" class="w-full resize-none text-2xl rounded-2xl border border-gray-300" required id="content" rows="10" ></textarea>
+      <textarea name="content" class="mt-2 w-full resize-none text-base rounded-2xl border border-gray-300" required id="content" rows="10" ></textarea>
     </div>
 
     
