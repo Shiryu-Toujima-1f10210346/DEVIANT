@@ -1,0 +1,179 @@
+<!doctype html>
+{% load static %}
+<html lang="ja">
+  
+<head>
+  {% block script %}
+  <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="{% static 'css/load.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+  {% endblock script %}
+   <title>{% block title %}{% endblock title %}</title>
+  </head>
+  <body>
+<!--↓ここからメニューバー-->
+<header style="z-index:3;">
+<nav class="bg-white px-2 sm:px-4 py-2.5 fixed w-full z-20 top-0 left-0 border-b border-gray-200">
+    <div class="container flex flex-wrap items-center justify-between mx-auto">
+    <a href="https://flowbite.com/" class="flex items-center">
+        {% comment %} <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo">
+        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> {% endcomment %}
+    </a>
+    <div class="flex md:order-2">
+      {% if user.is_authenticated %}
+
+    <h2 class="flex justify-center items-center p-4 text-lg">{{ user.username }}
+      さん  </h2> 
+      <button type="button" onclick="location.href='{% url 'logout' %}'" 
+      class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none 
+      focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center m-3 
+      md:mr-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ">Logout</button>
+      <button data-collapse-toggle="navbar-sticky" type="button" 
+      class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 
+      focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" 
+        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" 
+          clip-rule="evenodd"></path></svg>
+    </button>
+      {% else %}
+      <h2 class="flex justify-center items-center p-4 text-l">ゲスト</h2>
+      <button type="button" onclick="location.href={% url 'login' %}" 
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+        font-medium rounded-lg px-5 py-2.5 text-center m-3 md:mr-0 dark:bg-blue-600 
+        dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+
+        <button data-collapse-toggle="navbar-sticky" type="button" 
+        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 
+        focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" 
+          viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" 
+            clip-rule="evenodd"></path></svg>
+      </button>
+      {% endif %}
+
+    </div>
+    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+      <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+        {% if request.resolver_match.url_name == 'home' %}
+        <li>
+          <a href="{% url "home" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0 text-xl" aria-current="page">ㅤㅤㅤHOMEㅤㅤㅤ
+          </a>
+        </li>
+        {% else %}
+          <li>
+            <a href="{% url "home" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg" aria-current="page">HOME</a>
+        </li>
+        {% endif %}
+        {% if request.resolver_match.url_name == 'post' %}
+        <li>
+          <a href="{% url "post" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0 text-xl">ㅤㅤㅤPOSTㅤㅤㅤ
+          </a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url "post" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg">POST</a>
+        </li>
+        {% endif %}
+        {% if request.resolver_match.url_name == 'my_prof' %}
+        <li>
+          <a href="{% url "my_prof" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0 text-xl">ㅤㅤㅤPROFILEㅤㅤㅤ
+          </a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url "my_prof" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg">PROFILE</a>
+        </li>
+        {% endif %}
+        {% if request.resolver_match.url_name == 'chat' %}
+        <li>
+          <a href="{% url "chat" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0 text-xl">ㅤㅤㅤCHATㅤㅤㅤ
+          </a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url "chat" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg">CHAT</a>
+        </li>
+        {% endif %}
+        {% if request.resolver_match.url_name == 'favlist' %}
+        <li>
+          <a href="{% url "favlist" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0 text-xl">ㅤㅤㅤFAVㅤㅤㅤ
+          </a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url "favlist" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg">FAV</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+    </div>
+  </nav>
+  <br><br><br><br>
+</header>
+<div name="load">
+
+
+{% comment %} ここからローディング画面 {% endcomment %}
+  <div class="w-full h-full bg-white cover"style="z-index:5; position:fixed;"></div>
+  <div class="w-full h-full loaderBox"style="z-index:7; position:fixed;">
+    <div class="loader">loading...</div>
+  </div>
+  {% comment %} ここまでローディング画面 {% endcomment %}
+
+
+</div>
+<script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+<script>
+  ScrollReveal().reveal('.post', {
+    delay: 150,
+    rotate: { x: 0, y: 0, z: 10 },
+    reset: false,
+    origin: 'right',
+    viewFactor: 0.2,
+    duration: 1000,
+    distance: '50px',
+});
+
+
+
+$(function(){
+var cover = $('.cover');
+var loader = $('.loader');
+var loaderBox = $('.loaderBox');
+
+//ページの読み込みが完了したらアニメーションを非表示
+$(window).on('load',function(){
+    cover.delay(200).fadeOut(200);
+});
+
+//ページの読み込みが完了してなくても3秒後にアニメーションを非表示にする
+setTimeout(function(){
+    cover.fadeOut();
+},3000);
+//////////////////////LOADER///////////////////////////
+$(window).on('load',function(){
+    loader.delay(300).fadeOut(300);
+loaderBox.delay(300).fadeOut(300);
+});
+
+setTimeout(function(){
+    loader.fadeOut();
+loaderBox.fadeOut();
+},3000);
+});
+
+
+
+</script>
+</body>
+
+  <!--↑ここまでメニューバー-->
+{% block header %}
+{% endblock %}
+
+</html>
