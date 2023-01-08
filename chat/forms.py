@@ -7,5 +7,9 @@ class AccountForm(forms.ModelForm):
         fields = ('username','email',"password")
 class CommentForm(forms.ModelForm):
     class Meta:
+        #labelを変更
+        labels = {
+            'text': '',
+        }
         model = Comment
         fields = ('text',)

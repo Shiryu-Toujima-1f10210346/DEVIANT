@@ -80,13 +80,13 @@
       p-4
       ">
           <p>投稿者:{{ post.author }}</p>
-          <h2>タイトル:{{ post.title }}</h2>
+          <p>タイトル:<span class="text-xl">{{ post.title }}</span></p>
       </span>
     
           <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
           <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
           <br>
-          <div style="text-align:right;"><a href = "../post/{{ post.id }}">詳細</a></div>
+          <div class="link hover:underline text-blue"style="text-align:right;"><a href = "../post/{{ post.id }}">詳細</a></div>
     </div>
   
       {% endfor %}    

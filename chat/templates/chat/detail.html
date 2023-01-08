@@ -11,7 +11,7 @@
   </head>
 {% block header %}
 
-<body>
+<body class="bg-gray-200 p-8">
     <div class= "container">
         <p>投稿者:{{ post.author }}</p>
         <h2>タイトル:{{ post.title }}</h2>
@@ -20,9 +20,9 @@
 
         {% if post.img %}
         <p>画像:</p>
-        <img src="/media/{{ post.img }}" width="300" height="300">
+        <img src="/media/{{ post.img }}" width="300" height="300" class="rounded-xl">
         {% else %}
-        <img src="{% static 'img/NoImage.jpg' %}" width="300" height="300">
+        <img src="{% static 'img/NoImage.jpg' %}" width="300" height="300" class="rounded-xl">
         {% endif %}
         <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
         <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
@@ -62,11 +62,11 @@
   </div>
     <br><br>
     {% if request.user.is_authenticated %}
-    <form action="comment/" method="post">
+    <form action="comment/" method="post" class="">
       {% csrf_token %}
-      {{ comment_form.as_p }}
+      {{ comment_form.as_div }}
       <div>
-        <button type="submit">Submit</button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">コメントする</button>
       </div>
     </form>
     {% else %}
@@ -82,7 +82,7 @@
     {% if post.author == request.user.username %}
     <div class="container">
         <a href="javascript:void(0)" onclick="deletePost()">
-          <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">削除する</button>
+          <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">投稿を削除する</button>
           </a>
     </div>
     {% endif %}
@@ -94,7 +94,9 @@
               location.href = 'delete/';
           }
       }
-  
+    var commentForm = document.querySelector('#id_text');
+    commentForm.className="resize-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+
   </script>
 </body>
 {% endblock %}
