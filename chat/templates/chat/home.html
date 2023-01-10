@@ -32,23 +32,23 @@
   ">
   <div class="p-4 m-4 bg-gray-300 border rounded-lg">
     <span class="m-2 text-3xl ">
-        <a type="button" href="{%url "home"%}?order=popular" class="btn btn-info">人気順 </a>
+        <a type="button" href="{%url "home"%}?order=popular" class="hover:shadow-2xl hover:text-blue-500">人気順 </a>
       </span>
       <span class="m-2 text-3xl ">
-        <a type="button" href="{%url "home"%}?order=veiled" class="btn btn-info">発掘 </a>
+        <a type="button" href="{%url "home"%}?order=veiled" class="hover:shadow-2xl hover:text-blue-500">発掘 </a>
       </span> 
       <span class="m-2 text-3xl">
-        <a type="button" href="{%url "home"%}?order=new" class="btn btn-info">新着順 </a>
+        <a type="button" href="{%url "home"%}?order=new" class="hover:shadow-2xl hover:text-blue-500">新着順 </a>
       </span>
       <span class="m-2 text-3xl">
-        <a type="button" href="{%url "home"%}?order=old" class="btn btn-info">古い順</a>
+        <a type="button" href="{%url "home"%}?order=old" class="hover:shadow-2xl hover:text-blue-500">古い順</a>
       </span>
       <span class="m-2 text-3xl">
-        <a type="button" href="{%url "home"%}?order=pv" class="btn btn-info">閲覧数順</a>
+        <a type="button" href="{%url "home"%}?order=pv" class="hover:shadow-2xl hover:text-blue-500">PV順</a>
       </span>
     </span> 
   </div>
-  <br><br>
+  <br>
 
     <h1 class="m-2 text-2xl">投稿一覧</h1>
     <div class="
@@ -61,6 +61,7 @@
     pr-4">
     {% if object_list %}
       {% for post in object_list %}
+      
       <div class= "
       bg-white
       post
@@ -69,24 +70,39 @@
       m-4 p-4
       hover:shadow-2xl
       ">
-    
+      <a href = "../post/{{ post.id }}">
     
       <span class="
       text-4xl
       sm:text-3xl
       md:text-2xl
       lg:text-xl
-      m-4
-      p-4
       ">
-          <p>投稿者:{{ post.author }}</p>
-          <p>タイトル:<span class="text-xl">{{ post.title }}</span></p>
+          <div name="left">
+            <p>投稿者:{{ post.author }}</p>
+            <p>タイトル:<span class="">{{ post.title }}</span></p>
+        </span>
+      <br>
+      <span class="
+      text-2xl
+      sm:text-xl
+      md:text-lg
+      lg:text-base
+      ">
+            <p>PV:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
+            <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
       </span>
-    
-          <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
-          <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
-          <br>
-          <div class="link hover:underline text-blue"style="text-align:right;"><a href = "../post/{{ post.id }}">詳細</a></div>
+            <br>
+          </div name="left">
+        <div name="right">
+          {% if post.img %}
+          <img src="/media/{{ post.img }}" style=" width:200; height:200;"class="rounded-xl">
+          {% else %}
+          <img src="{% static 'img/NoImage.jpg' %}" width="200" height="200" class="rounded-xl">
+          {% endif %} 
+          </a>
+        </div name="right">
+
     </div>
   
       {% endfor %}    
@@ -114,8 +130,8 @@
         reset: false,
         origin: 'right',
         viewFactor: 0.2,
-        duration: 1000,
-        distance: '50px',
+        duration: 1200,
+        distance: '100px',
  });
 
 
