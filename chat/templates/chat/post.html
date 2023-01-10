@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-{% extends 'chat/header.html' %}
+{% extends 'chat/header2.html' %}
 {% load static %}
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>{% block title %}投稿{% endblock %}</title>
+{% comment %} 
     {%block script%}
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{% static 'css/loadBlack.css' %}">
     {%endblock%}
+     {% endcomment %}
 </head>
 {% block header %}
 

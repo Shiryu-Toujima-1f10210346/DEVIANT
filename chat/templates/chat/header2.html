@@ -66,7 +66,7 @@
         </li>
         {% else %}
           <li>
-            <a href="{% url "home" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg" aria-current="page">HOME</a>
+            <a href="{% url "home" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-300 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg" aria-current="page">HOME</a>
         </li>
         {% endif %}
         {% if request.resolver_match.url_name == 'post' %}

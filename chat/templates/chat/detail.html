@@ -1,102 +1,120 @@
 <!DOCTYPE html>
-{% extends 'chat/header.html' %}
+{% extends 'chat/header2.html' %}
 {% load static %}
 <html>
+
 <head>
-    <meta charset="utf-8"/>
-    <title>{% block title %}Detail{% endblock title %}</title>
-    {% block script %}
-    <script src="https://cdn.tailwindcss.com"></script>
-    {% endblock %}
-  </head>
+  <meta charset="utf-8" />
+  <title>{% block title %}Detail{% endblock title %}</title>
+</head>
 {% block header %}
 
-<body class="bg-gray-200 p-8">
-    <div class= "container">
-        <p>投稿者:{{ post.author }}</p>
-        <h2>タイトル:{{ post.title }}</h2>
-        <p>性別:{{ post.sex }} 容姿:{{ post.looks }} 種族:{{ post.type }} 状態:{{ post.state }}</p>
-        <p>本文:{{ post.content }}</p>
-
-        {% if post.img %}
-        <p>画像:</p>
-        <img src="/media/{{ post.img }}" width="300" height="300" class="rounded-xl">
-        {% else %}
-        <img src="{% static 'img/NoImage.jpg' %}" width="300" height="300" class="rounded-xl">
-        {% endif %}
-        <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
-        <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
-        <br>
-    </div>
-
-    {% if request.user.is_authenticated %}
-      {% if favorite.exists %}
-    <div class="container">
-        <a href={% url 'fav' post.id %}>
-          <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
-          </a><br><br>
-    </div>
+<body class="bg-gray-200">
+  <div class="p-4 grid grid-cols-3 gap-4">
+    
+    <div name="left" class="mr-6">
+      {% if post.img %}
+      <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6">
       {% else %}
-      <div class="container">
-        <a href={% url 'fav' post.id %}>
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">お気に入りに追加</button>
-          </a><br><br>
-    </div>
+      <img src="{% static 'img/NoImage.jpg' %}" width="300" height="300" class="rounded-xl">
       {% endif %}
-    {% endif %}
+    </div name="left" class="">
 
-    <h2>Comments</h2>
-    {% if post.comments %}
-    {% for comment in post.comments.all %}
-    <div class="text">
-      <span>{{comment.post_comment_id}}:{{comment.username}}さん</span>
-      <small>[{{ comment.created_at }}]</small>
-      <div>
-        {{ comment.text | linebreaksbr }}
+    <div name="center" class="container">
+
+        <div name="top">
+            <p>投稿者:{{ post.author }}</p>
+            <p>タイトル:{{ post.title }}</p>
+            <p>性別:{{ post.sex }} 容姿:{{ post.looks }}</p>
+            <p>種族:{{ post.type }} 状態:{{ post.state }}</p>  
+            <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
+            <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+        </div name="top">
+
+      <div name="bottom">
+       <div>
+          <p>内容:</p>
+            {{ post.content | linebreaksbr }}
+       </div>
+      </div name="bottom">
+
+    </div name="center">
+  
+   <div name="right">
+      <h2>Comments</h2><br>
+      {% if post.comment_num > 0%}
+      {% for comment in post.comments.all %}
+      <div class="text">
+        <span>{{comment.post_comment_id}}:{{comment.username}}さん</span>
+        <small>[{{ comment.created_at }}]</small>
+        <div>
+          {{ comment.text | linebreaksbr }}
+        </div>
       </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p>No comment.</p>
-    {% endif %}
-  </div>
-    <br><br>
+      {% endfor %}
+      {% else %}
+      <p>コメントはまだありません｡</p>
+      {% endif %}
+    
+      <br><br>
+      {% if request.user.is_authenticated %}
+      <form action="comment/" method="post" class="">
+        {% csrf_token %}
+        {{ comment_form.as_div }}
+        <div class="flex justify-end">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">コメントする</button>
+        </div>
+      </form>
+      {% else %}
+      <p>いいね､又はコメントするには<a href={% url 'login' %}><br><strong>ログイン</strong></a>してください。</p>
+      {% endif %}
+   </div name="right">
+
+
+
     {% if request.user.is_authenticated %}
-    <form action="comment/" method="post" class="">
-      {% csrf_token %}
-      {{ comment_form.as_div }}
-      <div>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">コメントする</button>
-      </div>
-    </form>
+    {% if favorite.exists %}
+    <div class="container">
+      <a href={% url 'fav' post.id %}>
+        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
+      </a><br><br>
+    </div>
     {% else %}
-    <p>いいね､又はコメントするには<a href={% url 'login' %}><strong>ログイン</strong></a>してください。</p>
+    <div class="container">
+      <a href={% url 'fav' post.id %}>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">お気に入りに追加</button>
+      </a>
+    </div>
     {% endif %}
-  <br><br>
+    {% endif %}
+  
+    
     <!--Homeに戻るボタン-->
     <div class="container">
-        <a href="/home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homeに戻る</a>
-    </div><br><br>
+      <a href="/home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homeに戻る</a>
+    </div>
     <!--削除ボタン-->
     <!--作者なら表示-->
     {% if post.author == request.user.username %}
     <div class="container">
-        <a href="javascript:void(0)" onclick="deletePost()">
-          <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">投稿を削除する</button>
-          </a>
+      <a href="javascript:void(0)" onclick="deletePost()">
+        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">投稿を削除する</button>
+      </a>
     </div>
     {% endif %}
 
-    <script>
-      function deletePost(){
-          console.log('delete-post');
-          if(window.confirm('本当に削除しますか？')){
-              location.href = 'delete/';
-          }
-      }
-    var commentForm = document.querySelector('#id_text');
-    commentForm.className="resize-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  </div>
 
+  <script>
+    function deletePost() {
+      console.log('delete-post');
+      if (window.confirm('本当に削除しますか？')) {
+        location.href = 'delete/';
+      }
+    }
+    var commentForm = document.querySelector('#id_text');
+    commentForm.className =
+      "resize-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full border-gray-300"
   </script>
 </body>
 {% endblock %}
