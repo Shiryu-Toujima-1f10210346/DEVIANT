@@ -10,37 +10,40 @@
 {% block header %}
 
 <body class="bg-gray-200">
-  <div class="p-4 grid grid-cols-3 gap-4">
+  <div class="p-6 grid grid-cols-3 gap-10">
     
-    <div name="left" class="mr-6">
+    <div id="left" class="rounded-xl container">
       {% if post.img %}
       <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6">
       {% else %}
-      <img src="{% static 'img/NoImage.jpg' %}" width="300" height="300" class="rounded-xl">
+      <img src="{% static 'img/NoImage.jpg' %}"class="rounded-xl shadow-2xl">
       {% endif %}
     </div name="left" class="">
 
-    <div name="center" class="container">
+    <div id="center" class="container">
 
-        <div name="top">
-            <p>投稿者:{{ post.author }}</p>
-            <p>タイトル:{{ post.title }}</p>
-            <p>性別:{{ post.sex }} 容姿:{{ post.looks }}</p>
-            <p>種族:{{ post.type }} 状態:{{ post.state }}</p>  
-            <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
-            <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
-        </div name="top">
-
-      <div name="bottom">
-       <div>
-          <p>内容:</p>
-            {{ post.content | linebreaksbr }}
-       </div>
-      </div name="bottom">
+        <div name="wrap"class="bg-white rounded-xl p-4 shadow-2xl">
+          <div name="top">
+             <span class="text-xl"> <p>投稿者:{{ post.author }} タイトル:{{ post.title }}</p></span>
+              <p>性別:{{ post.sex }} 容姿:{{ post.looks }}</p>
+              <p>種族:{{ post.type }} 状態:{{ post.state }}</p>  
+              <br>
+              <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
+              <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+          </div name="top">
+  
+        <div name="bottom">
+         <div>
+          <br>
+            <p>内容:</p>
+              {{ post.content | linebreaksbr }}
+         </div>
+        </div name="bottom">
+        </div>
 
     </div name="center">
   
-   <div name="right">
+   <div id="right" class=" bg-white rounded-xl p-4 container shadow-2xl">
       <h2>Comments</h2><br>
       {% if post.comment_num > 0%}
       {% for comment in post.comments.all %}
@@ -106,6 +109,30 @@
   </div>
 
   <script>
+    ScrollReveal().reveal('#left', {
+      delay: 100,
+      reset: false,
+      origin: 'bottom',
+      viewFactor: 0.2,
+      duration: 1000,
+      distance: '70px',
+});
+    ScrollReveal().reveal('#center', {
+      delay: 150,
+      reset: false,
+      origin: 'bottom',
+      viewFactor: 0.2,
+      duration: 1200,
+      distance: '70px',
+    });
+    ScrollReveal().reveal('#right', {
+      delay: 200,
+      reset: false,
+      origin: 'bottom',
+      viewFactor: 0.2,
+      duration: 1200,
+      distance: '70px',
+});
     function deletePost() {
       console.log('delete-post');
       if (window.confirm('本当に削除しますか？')) {
@@ -114,7 +141,7 @@
     }
     var commentForm = document.querySelector('#id_text');
     commentForm.className =
-      "resize-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full border-gray-300"
+      "resize-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full border-gray-300 bg-gray-200"
   </script>
 </body>
 {% endblock %}

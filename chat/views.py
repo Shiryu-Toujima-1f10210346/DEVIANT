@@ -78,6 +78,8 @@ class CommentCreateView(CreateView):
     def form_valid(self, form):
         post = Post.objects.get(pk=self.kwargs['pk'])
         post.comment_num += 1
+        #リダイレクト時､PVが増えてしまうので-1
+        post.pv -= 1
         post.save()
         #post_comment_idにcomment_numを入れる
         form.instance.post_comment_id = post.comment_num
