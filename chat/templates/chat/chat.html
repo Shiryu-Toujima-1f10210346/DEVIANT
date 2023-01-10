@@ -10,9 +10,11 @@
 {% block header %}
 
 <body>
-    入りたい部屋の名前を入力してください:<br>
-    <input id="room-name-input" type="text" size="100" required><br>
-    <input id="room-name-submit" type="button" value="Enter">
+   <div class="flex justify-center grid grid-rows-3 text-3xl p-16 m-10 bg-gray-200 rounded-xl shadow-xl">
+       <div> 入りたい部屋の名前を入力してください:</div>
+        <div class="flex justify-center"><input id="room-name-input" type="text" size="15" required class="border-4 text-6xl rounded-xl"></div><br>
+        <div class="flex justify-end"><input id="room-name-submit" type="button" value="入室"class="bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2"></div>
+   </div>
 
     <script>
         document.querySelector('#room-name-input').focus();
