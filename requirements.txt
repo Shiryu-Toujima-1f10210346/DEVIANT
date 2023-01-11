@@ -47,3 +47,4 @@ environ == 1.0
 whitenoise
 wheel
 psycopg2-binary
+gunicorn
