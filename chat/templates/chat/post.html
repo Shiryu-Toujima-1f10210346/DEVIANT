@@ -26,7 +26,7 @@
 
 {% if request.user.is_authenticated %}
  <!--Postモデルを利用した投稿機能-->
- <form action="" method="post" enctype="multipart/form-data" class="bg-slate-100 shadow-xl m-4 border-b-8 border-r-8 border-t border-l border-gray-100 rounded-lg font-mono"><!--投稿完了を表示させたい-->
+ <form action="" method="post" enctype="multipart/form-data" class="bg-gradient-to-r from-indigo-100 via-sky-100 to-blue-100 shadow-xl m-4 border-b-8 border-r-8 border-t border-l border-gray-100 rounded-lg font-mono"><!--投稿完了を表示させたい-->
 {%csrf_token%}
 <div class="m-3">
 
@@ -38,7 +38,7 @@
 
       <div class="max-w-xl">
         <label
-            class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none text-2xl" id="dropArea">
+            class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none text-2xl shadow-md" id="dropArea">
             <span class="flex items-center space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
