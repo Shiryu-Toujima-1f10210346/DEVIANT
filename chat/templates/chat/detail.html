@@ -9,20 +9,61 @@
 </head>
 {% block header %}
 
-<body class="bg-gray-200">
+<body class="bg-slate-300">
   <div class="p-6 grid grid-cols-3 gap-10">
     
     <div id="left" class="rounded-xl container">
-      {% if post.img %}
-      <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6">
-      {% else %}
-      <img src="{% static 'img/NoImage.jpg' %}"class="rounded-xl shadow-2xl">
-      {% endif %}
+      
+          {% if request.user.is_authenticated %}
+    {% if favorite.exists %}
+    <div class="container">
+      <a href={% url 'fav' post.id %}>
+        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
+      </a><br><br>
+    </div>
+    {% else %}
+    <div class="container">
+      <a href={% url 'fav' post.id %}>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">お気に入りに追加</button>
+      </a>
+    </div>
+    {% endif %}
+    {% endif %}
+      
+    <!--Homeに戻るボタン-->
+    <div class="container">
+      <a href="/home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homeに戻る</a>
+    </div>
+     
+
+ 
     </div name="left" class="">
 
     <div id="center" class="container">
 
-        <div name="wrap"class="bg-white rounded-xl p-4 shadow-2xl">
+        {% if post.img %} 
+
+      <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6"> 
+
+      {% else %} 
+
+      <img src="{% static 'img/NoImage.jpg' %}"class="rounded-xl shadow-2xl"> 
+
+      {% endif %} 
+            
+      <!--削除ボタン-->
+            <!--作者なら表示-->
+            {% if post.author == request.user.username %}
+            <div class="container">
+              <a href="javascript:void(0)" onclick="deletePost()">
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">投稿を削除する</button>
+              </a>
+            </div>
+    {% endif %}
+    </div name="center">
+  
+
+       <div name="wrap"class="bg-white rounded-xl p-4 shadow-2xl">
           <div name="top">
              <span class="text-xl"> <p>投稿者:{{ post.author }} タイトル:{{ post.title }}</p></span>
               <p>性別:{{ post.sex }} 容姿:{{ post.looks }}</p>
@@ -39,72 +80,67 @@
               {{ post.content | linebreaksbr }}
          </div>
         </div name="bottom">
+        
         </div>
 
-    </div name="center">
-  
-   <div id="right" class=" bg-white rounded-xl p-4 container shadow-2xl">
-      <h2>Comments</h2><br>
-      {% if post.comment_num > 0%}
-      {% for comment in post.comments.all %}
-      <div class="text">
-        <span>{{comment.post_comment_id}}:{{comment.username}}さん</span>
-        <small>[{{ comment.created_at }}]</small>
-        <div>
-          {{ comment.text | linebreaksbr }}
-        </div>
-      </div>
-      {% endfor %}
-      {% else %}
-      <p>コメントはまだありません｡</p>
-      {% endif %}
-    
-      <br><br>
-      {% if request.user.is_authenticated %}
-      <form action="comment/" method="post" class="">
-        {% csrf_token %}
-        {{ comment_form.as_div }}
-        <div class="flex justify-end">
-          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">コメントする</button>
-        </div>
-      </form>
-      {% else %}
-      <p>いいね､又はコメントするには<a href={% url 'login' %}><br><strong>ログイン</strong></a>してください。</p>
-      {% endif %}
+            
    </div name="right">
 
+   <div id="right" class=" bg-white rounded-xl p-4 container shadow-2xl"> 
+    <h2>Comments</h2><br> 
 
+    {% if post.comment_num > 0%} 
 
-    {% if request.user.is_authenticated %}
-    {% if favorite.exists %}
-    <div class="container">
-      <a href={% url 'fav' post.id %}>
-        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
-      </a><br><br>
-    </div>
-    {% else %}
-    <div class="container">
-      <a href={% url 'fav' post.id %}>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">お気に入りに追加</button>
-      </a>
-    </div>
-    {% endif %}
-    {% endif %}
-  
-    
-    <!--Homeに戻るボタン-->
-    <div class="container">
-      <a href="/home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homeに戻る</a>
-    </div>
-    <!--削除ボタン-->
-    <!--作者なら表示-->
-    {% if post.author == request.user.username %}
-    <div class="container">
-      <a href="javascript:void(0)" onclick="deletePost()">
-        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">投稿を削除する</button>
-      </a>
-    </div>
-    {% endif %}
+    {% for comment in post.comments.all %} 
+
+    <div class="text"> 
+
+      <span>{{comment.post_comment_id}}:{{comment.username}}さん</span> 
+
+      <small>[{{ comment.created_at }}]</small> 
+
+      <div> 
+
+        {{ comment.text | linebreaksbr }} 
+
+      </div> 
+
+    </div> 
+
+    {% endfor %} 
+
+    {% else %} 
+
+    <p>コメントはまだありません｡</p> 
+
+    {% endif %} 
+
+   
+
+    <br><br> 
+
+    {% if request.user.is_authenticated %} 
+
+    <form action="comment/" method="post" class=""> 
+
+      {% csrf_token %} 
+
+      {{ comment_form.as_div }} 
+
+      <div class="flex justify-end"> 
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">コメントする</button> 
+
+      </div> 
+
+    </form> 
+
+    {% else %} 
+
+    <p>いいね､又はコメントするには<a href={% url 'login' %}><br><strong>ログイン</strong></a>してください。</p> 
+
+    {% endif %} 
+  </div name="right">
 
   </div>
 
