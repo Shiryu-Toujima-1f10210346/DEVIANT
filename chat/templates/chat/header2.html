@@ -90,12 +90,12 @@
         {% endif %}
         {% if request.resolver_match.url_name == 'chat' %}
         <li>
-          <a href="{% url "chat" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0 text-xl">ㅤㅤㅤCHATㅤㅤㅤ
+          <a href="{% url "chat" %}" disabled class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0 text-xl">ㅤㅤㅤCHATㅤㅤㅤ
           </a>
         </li>
         {% else %}
         <li>
-          <a href="{% url "chat" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg">CHAT</a>
+          <a href="{% url "chat" %}" disabledclass="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg">CHAT</a>
         </li>
         {% endif %}
         {% if request.resolver_match.url_name == 'favlist' %}
