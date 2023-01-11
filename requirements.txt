@@ -46,3 +46,4 @@ urllib3==1.26.13
 zope.interface==5.5.2
 environ == 1.0
 whitenoise
+wheel
