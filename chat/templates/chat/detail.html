@@ -94,7 +94,7 @@
       {% if post.author == request.user.username %}
       <div class="container pt-6">
         <a href="javascript:void(0)" onclick="deletePost()"class="flex justify-center">
-        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex justify-center" id="button-delete">投稿を削除する 🗑</button>
+        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex justify-center" id="button-delete">投稿を削除する</button>
         </a>
       </div>
   {% endif %}
@@ -102,13 +102,13 @@
     {% if favorite.exists %}
       <div class="container pt-6">
         <a href={% url 'fav' post.id %} class="flex justify-center">
-          <button id="button-unfav" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除 🗑</button>
+          <button id="button-unfav" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
         </a>
       </div>
     {% else %}
         <div class="container pt-6">
           <a href={% url 'fav' post.id %} class="flex justify-center">
-            <button id="button-fav" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">お気に入りに追加 ♥</button>
+            <button id="button-fav" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">お気に入りに追加</button>
           </a>
         </div>
     {% endif %}

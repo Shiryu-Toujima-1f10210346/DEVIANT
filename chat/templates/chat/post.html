@@ -16,115 +16,110 @@
 {% block header %}
 
 <body class="" >
-
-{% comment %} ここからローディング画面 {% endcomment %}
-<div class="w-full h-full bg-gray-500 cover"style="z-index:5; position:fixed;"></div>
-<div class="w-full h-full loaderBox"style="z-index:7; position:fixed;">
-  <div class="loader">loading...</div>
-</div>
-{% comment %} ここまでローディング画面 {% endcomment %}
-
+  <img src="{% static 'img/postbg.png' %}" style="width:100%;height:100%;object-fit:cover;position:fixed;z-index:-3;">
 {% if request.user.is_authenticated %}
  <!--Postモデルを利用した投稿機能-->
- <form action="" method="post" enctype="multipart/form-data" class="bg-gradient-to-r from-indigo-100 via-sky-100 to-blue-100 shadow-xl m-4 border-b-8 border-r-8 border-t border-l border-gray-100 rounded-lg font-mono"><!--投稿完了を表示させたい-->
-{%csrf_token%}
-<div class="m-3">
-
-<div name="上部分" class="grid grid-cols-2">
-    {% comment %} <div name="左"class="">
-        <label for="id_image">画像</label>
-        <input type="file" name="img" class="w-full" id="img" accept="image/*">
-      </div> {% endcomment %}
-
-      <div class="max-w-xl">
-        <label
-            class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none text-2xl shadow-md" id="dropArea">
-            <span class="flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
-                <span class="font-medium text-gray-600" id="UploadField">
-                    画像をドロップ､または
-                    <span class="text-blue-600 hover:underline">選択</span>
-                </span>
-            </span>
-            <input type="file" name="img" class="hidden" id="img" accept="image/*" onclick="fileSelected()">
-        </label>
-        <div class="m-2 text-2xl">
-          <label for="title">撮影詳細</label>
-          <input type="title" name="alt_text" class="w-full resize-none text-base border border-gray-300" >
-          <div class="mt-2 m-2 text-sm">
-            <p>※35文字以内</p>
+<div name="main" class="p-16">
+   <form action="" method="post" enctype="multipart/form-data" class="p-8 bg-gradient-to-r from-indigo-100 via-sky-100 to-blue-100 shadow-xl m-4 border-b-8 border-r-8 border-t border-l border-gray-100 rounded-lg font-mono"><!--投稿完了を表示させたい-->
+  {%csrf_token%}
+  <div class="m-3">
+  
+  <div name="上部分" class="grid grid-cols-2">
+      {% comment %} <div name="左"class="">
+          <label for="id_image">画像</label>
+          <input type="file" name="img" class="w-full" id="img" accept="image/*">
+        </div> {% endcomment %}
+  
+        <div class="max-w-xl">
+          <label
+              class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none text-2xl shadow-md" id="dropArea">
+              <span class="flex items-center space-x-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                  </svg>
+                  <span class="font-medium text-gray-600" id="UploadField">
+                      画像をドロップ､または
+                      <span class="text-blue-600 hover:underline">選択</span>
+                  </span>
+              </span>
+              <input type="file" name="img" class="hidden" id="img" accept="image/*" onclick="fileSelected()">
+          </label>
+          <div class="m-2 text-2xl">
+            <label for="title">撮影詳細</label>
+            <input type="title" name="alt_text" class="w-full resize-none text-base border border-gray-300" >
+            <div class="mt-2 m-2 text-sm">
+              <p>※35文字以内</p>
+            </div>
           </div>
-        </div>
-    </div>
-
-  <div name="右" class="container mx-16">
-
-
-        <div class="m-2 text-3xl">
-          <label for="title">名前</label>
-          <input type="title" name="title" class="" required id="title">
-        </div>
-
-        <div class="m-2 text-3xl">
-          <label for="id_sex">性別</label>
-          <select name="sex" class="" required >
-            <option value="" disabled selected>--- 性別を選択 ---</option>
-            <option value="男性">男</option>
-            <option value="女性">女</option>
-            <option value="その他">その他</option>
-          </select>
-        </div>
-        
-        <div class="m-2 text-3xl">
-          <label for="looks">分類</label>
-          <select name="looks" class="" required>
-              <option value="" disabled selected>--- 分類を選択 ---</option>
-              <option value="COOL">COOL</option>
-              <option value="CUTE">CUTE</option>
-              <option value="BEAUTIFUL">BEAUTIFUL</option>
-              <option value="その他">その他</option>
-          </select>
       </div>
-
-        <div class="m-2 text-3xl">
-            <label for="type">種族</label>
-            <select name="type" class="" required>
-                <option value="" disabled selected>--- 種族を選択 ---</option>
-                <option value="人間">人間</option>
-                <option value="人外">人外</option>
+  
+    <div name="右" class="container mx-16">
+  
+  
+          <div class="m-2 text-3xl">
+            <label for="title">名前</label>
+            <input type="title" name="title" class="" required id="title">
+          </div>
+  
+          <div class="m-2 text-3xl">
+            <label for="id_sex">性別</label>
+            <select name="sex" class="" required >
+              <option value="" disabled selected>--- 性別を選択 ---</option>
+              <option value="男性">男</option>
+              <option value="女性">女</option>
+              <option value="その他">その他</option>
+            </select>
+          </div>
+          
+          <div class="m-2 text-3xl">
+            <label for="looks">分類</label>
+            <select name="looks" class="" required>
+                <option value="" disabled selected>--- 分類を選択 ---</option>
+                <option value="COOL">COOL</option>
+                <option value="CUTE">CUTE</option>
+                <option value="BEAUTIFUL">BEAUTIFUL</option>
                 <option value="その他">その他</option>
             </select>
         </div>
-        
-        <div class="m-2 text-3xl">
-            <label for="state" class="">状態</label>
-            <select name="state" class="" required>
-              <option value="" disabled selected>--- 状態を選択 ---</option>
-                <option value="処分済">処分済</option>
-                <option value="捕獲済">捕獲済</option>
-                <option value="監視中">監視中</option>
-                <option value="その他">その他</option>
-            </select>
-        </div>
-  </div name="右">
-
-</div name="上部分">
-
-    <div class="">
-      <p class="mt-5 text-3xl">報告内容</p>
-      <label for="id_content"></label>
-      <textarea name="content" class="mt-2 w-full resize-none text-base rounded-2xl border border-gray-300 p-4" required id="content" rows="10" ></textarea>
-    </div>
-
-    
-    <div class="" style="text-align:right;"><button type="submit" class="border-2 border-gray-400 rounded pr-2 pl-2">報告</button></div>
-</div>
-
-  </form>
+  
+          <div class="m-2 text-3xl">
+              <label for="type">種族</label>
+              <select name="type" class="" required>
+                  <option value="" disabled selected>--- 種族を選択 ---</option>
+                  <option value="人間">人間</option>
+                  <option value="人外">人外</option>
+                  <option value="その他">その他</option>
+              </select>
+          </div>
+          
+          <div class="m-2 text-3xl">
+              <label for="state" class="">状態</label>
+              <select name="state" class="" required>
+                <option value="" disabled selected>--- 状態を選択 ---</option>
+                  <option value="処分済">処分済</option>
+                  <option value="捕獲済">捕獲済</option>
+                  <option value="監視中">監視中</option>
+                  <option value="その他">その他</option>
+              </select>
+          </div>
+    </div name="右">
+  
+  </div name="上部分">
+  
+      <div class="">
+        <p class="mt-5 text-3xl">報告内容</p>
+        <label for="id_content"></label>
+        <textarea name="content" class="mt-2 w-full resize-none text-base rounded-2xl border border-gray-300 p-4" required id="content" rows="10" ></textarea>
+      </div>
+  
+      
+      <div class="" style="text-align:right;"><button type="submit" class="border-2 border-gray-400 rounded pr-2 pl-2">報告</button></div>
+  </div>
+  
+    </form>
+</div name="main">
 
 
 

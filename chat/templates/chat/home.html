@@ -75,10 +75,10 @@
       <a href = "../post/{{ post.id }}">
     
       <span class="
-      text-4xl
-      sm:text-3xl
-      md:text-2xl
-      lg:text-xl
+      text-5xl
+      sm:text-4xl
+      md:text-3xl
+      lg:text-2xl
       ">
           <div name="left">
             <p>投稿者:{{ post.author }}</p>
@@ -86,28 +86,28 @@
         </span>
       <br>
       <span class="
-      text-2xl
-      sm:text-xl
-      md:text-lg
-      lg:text-base
+      text-3xl
+      sm:text-2xl
+      md:text-xl
+      lg:text-lg
       ">
-            <p>PV:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
+            <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
             <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
       </span>
             <br>
           </div name="left">
-        <div name="right" id="image">
+        <div name="right" id="image" class="">
 
 
           {% if post.img %}
           {% comment %} post.imgのheightが250px未満なら {% endcomment %}
             {% if post.img.height < 250 %}
-            <img src="/media/{{ post.img }}" style="width:auto;"class="rounded-xl">
+            <img src="/media/{{ post.img }}" style="width:auto; text-align:center;"class="rounded-xl pr-">
               {% else %}
-              <img src="/media/{{ post.img }}" style="width:auto;height:200px;"class="rounded-xl">
+              <img src="/media/{{ post.img }}" style="width:auto;height:200px; text-align:center;"class="rounded-xl">
             {% endif %}
           {% else %}
-            <img src="{% static 'img/NoImage.jpg' %}" style="width:auto;height:200px;" class="rounded-xl">
+            <img src="{% static 'img/NoImage.jpg' %}" style="width:auto;height:200px; text-align:center;" class="rounded-xl">
           {% endif %} 
 
 
