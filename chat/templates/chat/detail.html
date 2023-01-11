@@ -10,55 +10,50 @@
 {% block header %}
 
 <body class="bg-slate-300" id="body-main">
-  <div class="p-6 grid grid-cols-3 gap-10">
+  <div class="p-6 grid grid-cols-3 gap-10" name="main">
     
-    <div id="left" class="rounded-xl container">
-      {% if request.user.is_authenticated %}
-        {% if favorite.exists %}
-          <div class="container">
-            <a href={% url 'fav' post.id %}>
-              <button id="button-unfav" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
-            </a><br><br>
-          </div>
-        {% else %}
-            <div class="container">
-              <a href={% url 'fav' post.id %}>
-                <button id="button-fav" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">お気に入りに追加</button>
-              </a>
-            </div>
-        {% endif %}
-      {% endif %}
-        <div class="container">
-          <a href="/home" id="button-home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homeに戻る</a>
-        </div>
-     
-  </div name="left">
+  <div id="left" class="rounded-xl container bg-white p-4 shadow-2xl">
+    <div name="wrap"class="">
+      <div name="top">
+         <span class="text-xl"> <p>投稿者:{{ post.author }} タイトル:{{ post.title }}</p></span>
+          <p>性別:{{ post.sex }} 容姿:{{ post.looks }}</p>
+          <p>種族:{{ post.type }} 状態:{{ post.state }}</p>  
+          <br>
+          
+      </div name="top">
 
-    <div id="center" class="container">
+    <div name="bottom">
+     <div>
+      <br>
+        <p>内容:</p>
+          {{ post.content | linebreaksbr }}
+     </div>
+    </div name="bottom">
+    
+    </div name="wrap">
+  </div name="left">
+  <div id="center" class="container">
 
         {% if post.img %} 
 
           <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6 shadow-2xl"> 
           <br>
-          <p>画像の説明:{{ post.alt_text }}</p>
+          <p class="p-2 bg-white rounded-xl shadow-2xl">画像の説明:{{ post.alt_text }}</p>
         {% else %} 
 
           <img src="{% static 'img/NoImage.jpg' %}"class="rounded-xl shadow-2xl"> 
           <br>
-          <p>画像の説明:No Infomation.</p>
+          <p class="p-2 bg-white rounded-xl shadow-2xl">画像の説明:No Infomation.</p>
         {% endif %} 
             
-      <!--削除ボタン-->
-      <!--作者なら表示-->
-        {% if post.author == request.user.username %}
-            <div class="container">
-              <a href="javascript:void(0)" onclick="deletePost()">
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="button-delete">投稿を削除する</button>
-              </a>
-            </div>
-        {% endif %}
-    </div name="center">
+      
+  </div name="center">
   
+<<<<<<< HEAD
+  <div id="right" class="container bg-white rounded-xl p-4 container shadow-2xl">
+       
+    <h2 class="text-2xl">Comments</h2><br> 
+=======
     <div id="right" class="container">
        <div name="wrap"class="bg-white rounded-xl p-4 shadow-2xl">
           <div name="top">
@@ -85,6 +80,7 @@
 
    <div id="bottom-left" class=" bg-white rounded-xl p-4 container shadow-2xl"> 
     <h2>Comments</h2><br> 
+>>>>>>> 5f97bc1e8a7f245d291f9e4b10b77287ea2463bb
 
     {% if post.comment_num > 0%} 
 
@@ -108,14 +104,52 @@
 
     {% else %} 
 
-    <p>コメントはまだありません｡</p> 
+    <p class="text-2xl">コメントはまだありません｡</p> <br>
+    <p class="flex justify-center text-4xl">↓　コメントしてみよう　↓</p> 
 
-    {% endif %} 
+    {% endif %}      
+
   </div name="right">
 
-<div id="bottom-center" class="bg-white rounded-xl shadow-2xl p-4">
+  <div id="bottom-left" class="bg-white rounded-xl p-4 container shadow-2xl text-4xl"> 
+    <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
+          <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+  </div name="bottom-left">
 
-  {% if request.user.is_authenticated %} 
+  <div id="bottom-center" class="">
+<!--削除ボタン-->
+      <!--作者なら表示-->
+      {% if post.author == request.user.username %}
+      <div class="container pt-6">
+        <a href="javascript:void(0)" onclick="deletePost()"class="flex justify-center">
+        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex justify-center" id="button-delete">投稿を削除する 🗑</button>
+        </a>
+      </div>
+  {% endif %}
+    {% if request.user.is_authenticated %}
+    {% if favorite.exists %}
+      <div class="container pt-6">
+        <a href={% url 'fav' post.id %}class="flex justify-center">
+          <button id="button-unfav" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除 🗑</button>
+        </a><br><br>
+      </div>
+    {% else %}
+        <div class="container pt-6">
+          <a href={% url 'fav' post.id %} class="flex justify-center">
+            <button id="button-fav" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">お気に入りに追加 ♥</button>
+          </a>
+        </div>
+    {% endif %}
+  {% endif %}
+    <div class="container pt-6 flex justify-center">
+      <a href="/home" id="button-home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">Homeに戻る 🏚</a>
+    </div>
+ 
+
+  </div name="bottom-center">
+
+  <div id="bottom-right"class=" bg-white rounded-xl p-4 container shadow-2xl">
+    {% if request.user.is_authenticated %} 
 
     <form action="comment/" method="post" class=""> 
 
@@ -137,15 +171,15 @@
 
     {% endif %} 
 
-</div>
+  </div name="bottom-right">
 
-  </div>
+  </div name="main">
 
   <script>
     var bodyMain = document.getElementById("body-main").classList;
     var buttonHome = document.getElementById("button-home").classList;
     if ( document.getElementById("button-unfav") ) {
-     var buttonUnfav = document.getElementById("button-unfav").classList;
+     var buttonUnFav = document.getElementById("button-unfav").classList;
     }
     if (document.getElementById("button-fav")){
      var buttonFav = document.getElementById("button-fav").classList;
@@ -153,8 +187,8 @@
     var buttonDelete = document.getElementById("button-delete").classList;
     {% if post.looks != "その他" %}
 
-      if (buttonUnfav){
-      buttonUnfav.remove("bg-red-500","hover:bg-red-700");
+      if (buttonUnFav){
+      buttonUnFav.remove("bg-red-500","hover:bg-red-700");
       }
       if (buttonFav){
         buttonFav.remove("bg-blue-500","hover:bg-blue-700");
@@ -168,8 +202,8 @@
     {% if post.looks == "CUTE" %}
     
       bodyMain.add("bg-gradient-to-r","from-blue-200","via-rose-100","to-pink-400");
-      if (buttonUnfav){
-        buttonUnfav.add("bg-pink-400","hover:bg-pink-700");
+      if (buttonUnFav){
+        buttonUnFav.add("bg-pink-400","hover:bg-pink-700");
       }
       if (buttonFav){
         buttonFav.add("bg-pink-400","hover:bg-pink-700");
@@ -180,21 +214,21 @@
     {% endif %}
     {% if post.looks == "COOL" %} 
       bodyMain.add("bg-gradient-to-r","from-rose-100","to-indigo-900");
-      if (buttonUnfav){
-        buttonFav.add("bg-emerald-400","hover:bg-emerald-700");
+      if (buttonUnFav){
+        buttonUnFav.add("bg-emerald-400","hover:bg-emerald-700");
       }
       if (buttonFav){
         buttonFav.add("bg-pink-600","hover:bg-pink-700");
       }
       buttonHome.add("bg-indigo-500","hover:bg-indigo-900");
-      buttonDelete.add("bg-pink-600","hover:bg-pink-900");
+      buttonDelete.add("bg-red-600","hover:bg-red-900");
     {% endif %}
 
 
     {% if post.looks == "BEAUTIFUL" %}
       bodyMain.add("bg-gradient-to-r","from-rose-100","to-blue-900");
-      if (buttonUnfav){
-        buttonUnfav.add("bg-red-500","hover:bg-red-700");
+      if (buttonUnFav){
+        buttonUnFav.add("bg-red-500","hover:bg-red-700");
       }
       if (buttonFav){
         buttonFav.add("bg-blue-900","hover:bg-blue-700");
@@ -202,6 +236,14 @@
       buttonHome.add("bg-blue-900","hover:bg-blue-700");
       buttonDelete.add("bg-red-500","hover:bg-red-700");
     {% endif %}
+    ScrollReveal().reveal('#left', {
+      delay: 100,
+      reset: false,
+      origin: 'bottom',
+      viewFactor: 0.2,
+      duration: 1000,
+      distance: '70px',
+    });
     ScrollReveal().reveal('#center', {
       delay: 150,
       reset: false,
@@ -228,6 +270,15 @@
     });
     ScrollReveal().reveal('#bottom-center', {
       delay: 300,
+      reset: false,
+      origin: 'bottom',
+      viewFactor: 0.2,
+      duration: 1000,
+      distance: '70px',
+    });
+
+    ScrollReveal().reveal('#bottom-right', {
+      delay: 350,
       reset: false,
       origin: 'bottom',
       viewFactor: 0.2,
