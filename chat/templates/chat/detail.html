@@ -62,8 +62,8 @@
     <div id="right" class="container">
        <div name="wrap"class="bg-white rounded-xl p-4 shadow-2xl">
           <div name="top">
-             <span class="text-xl"> <p>投稿者:{{ post.author }} タイトル:{{ post.title }}</p></span>
-              <p>性別:{{ post.sex }} 容姿:{{ post.looks }}</p>
+             <span class="text-xl"> <p>投稿者:{{ post.author }} 報告対象:{{ post.title }}</p></span>
+              <p>性別:{{ post.sex }} 分類:{{ post.looks }}</p>
               <p>種族:{{ post.type }} 状態:{{ post.state }}</p>  
               <br>
               <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
@@ -165,7 +165,7 @@
       buttonDelete.remove("bg-red-500","hover:bg-red-700");
 
     {% endif %}
-    {% if post.looks == "かわいい" %}
+    {% if post.looks == "CUTE" %}
     
       bodyMain.add("bg-gradient-to-r","from-blue-200","via-rose-100","to-pink-400");
       if (buttonUnfav){
@@ -178,7 +178,7 @@
       buttonHome.add("bg-emerald-400","hover:bg-emerald-700");
 
     {% endif %}
-    {% if post.looks == "かっこいい" %} 
+    {% if post.looks == "COOL" %} 
       bodyMain.add("bg-gradient-to-r","from-rose-100","to-indigo-900");
       if (buttonUnfav){
         buttonFav.add("bg-emerald-400","hover:bg-emerald-700");
@@ -191,7 +191,7 @@
     {% endif %}
 
 
-    {% if post.looks == "美しい" %}
+    {% if post.looks == "BEAUTIFUL" %}
       bodyMain.add("bg-gradient-to-r","from-rose-100","to-blue-900");
       if (buttonUnfav){
         buttonUnfav.add("bg-red-500","hover:bg-red-700");
