@@ -1,33 +1,31 @@
 <!DOCTYPE html>
+{% extends 'chat/header2.html' %}
+{% load static %}
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Index</title>
+    <title>{% block title %}DEVIANT{% endblock title %}</title>
+    {% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="{% static 'css/load.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    {% endblock %}
 </head>
+{% block header %}
 <body>
 
-    <h1 class="mx-10 p-2 text-5xl">Welcome to this SITE !!!</h1>
-    <p class="p-2 my-2 text-2xl">This is TEST page</p>
-    <a class="p-2 my-2 text-2xl">You don't have account? </a>
-    <a href='http://localhost:8000/signup/'><strong>Sign up!</strong></a>
-    <br>
-    <a class="p-2 my-2 text-2xl">Login here!</a>
-    <a href='http://localhost:8000/login/'><strong>Login</strong></a>
-    <br>
-    <a class="p-2 text-2xl" href='http://localhost:8000/home/'><strong>ー　作品一覧　ー</strong></a>
-    <br>
-    <a class="p-2 text-2xl" href='http://localhost:8000/my_prof/'><strong>ー　自分のプロフィール　ー</strong></a>
-    <br>
-    <a class="p-2 text-2xl" href='http://localhost:8000/others_prof/'><strong>ー　Others Profile　ー</strong></a>
-    <br>
-    <a class="p-2 text-2xl" href='http://localhost:8000/post/'><strong>ー　投稿する　ー</strong></a>
-    <br>
-    <a class="p-2 text-2xl" href='http://localhost:8000/logout/'><strong>ー　ログアウトする　ー</strong></a>
-    <br>
-    <a class="p-2 text-2xl" href='http://localhost:8000/admin/'><strong>ー　admin　ー</strong></a>
-    <br>
-    <a class="p-2 text-2xl" href='http://localhost:8000/favlist/'><strong>ー　お気に入り一覧　ー</strong></a>
+    <img src="{% static 'img/index2.jpg' %}" style="background-size: cover; opacity:0.5;position:fixed;z-index:3;">
+    <div name="main" class="p-36 pr-48 text-8xl font-serif">
+        “DEVIANT”
+        <br><br><br>
+        <div class="flex justify-end text-6xl">
+        -キミの世界を広げよう｡-
+        </div>
+    </div>
     <script>
     </script>
 </body>
+{% endblock %}
 </html>

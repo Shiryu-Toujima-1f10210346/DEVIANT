@@ -47,7 +47,7 @@ class FavListView(ListView):
 class PostCreateView(CreateView):
     template_name = 'chat/post.html'
     model = Post
-    fields = ('title','sex','looks','type','state','content','img')
+    fields = ('title','sex','looks','type','state','content','img','alt_text')
     def form_valid(self, form):
         if form.instance.img == "":
             form.instance.img = None

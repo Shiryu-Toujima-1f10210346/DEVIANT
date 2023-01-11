@@ -39,11 +39,13 @@
         {% if post.img %} 
 
           <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6 shadow-2xl"> 
-
+          <br>
+          <p>画像の説明:{{ post.alt_text }}</p>
         {% else %} 
 
           <img src="{% static 'img/NoImage.jpg' %}"class="rounded-xl shadow-2xl"> 
-
+          <br>
+          <p>画像の説明:No Infomation.</p>
         {% endif %} 
             
       <!--削除ボタン-->
@@ -51,7 +53,7 @@
         {% if post.author == request.user.username %}
             <div class="container">
               <a href="javascript:void(0)" onclick="deletePost()">
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">投稿を削除する</button>
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="button-delete">投稿を削除する</button>
               </a>
             </div>
         {% endif %}
@@ -140,34 +142,66 @@
   </div>
 
   <script>
-    /*var bodyMain = document.getElementById("body-main").className;
-    var buttonFav = document.getElementById("button-fav").classList;
-    var buttonUnfav = document.getElementById("button-unfav").className;
-    var buttonHome = document.getElementById("button-home").className;*/
+    var bodyMain = document.getElementById("body-main").classList;
+    var buttonHome = document.getElementById("button-home").classList;
+    if ( document.getElementById("button-unfav") ) {
+     var buttonUnfav = document.getElementById("button-unfav").classList;
+    }
+    else {
+     var buttonFav = document.getElementById("button-fav").classList;
+    }
+    var buttonDelete = document.getElementById("button-delete").classList;
+    {% if post.looks != "その他" %}
+
+      if (buttonUnfav){
+      buttonUnfav.remove("bg-red-500","hover:bg-red-700");
+      }
+      else{
+        buttonFav.remove("bg-blue-500","hover:bg-blue-700");
+      }
+
+      bodyMain.remove("bg-slate-300");
+      buttonHome.remove("bg-blue-500","hover:bg-blue-700");
+      buttonDelete.remove("bg-red-500","hover:bg-red-700");
+
+    {% endif %}
     {% if post.looks == "かわいい" %}
-    document.getElementById("body-main").classList.remove("bg-slate-300");
-    document.getElementById("body-main").classList.add("bg-gradient-to-r","from-blue-200","via-rose-100","to-pink-400");
+    
+      bodyMain.add("bg-gradient-to-r","from-blue-200","via-rose-100","to-pink-400");
+      if (buttonUnfav){
+        buttonUnfav.add("bg-pink-400","hover:bg-pink-700");
+      }
+      else{
+        buttonFav.add("bg-pink-400","hover:bg-pink-700");
+      }
+      buttonDelete.add("bg-red-500","hover:bg-red-700");
+      buttonHome.add("bg-emerald-400","hover:bg-emerald-700");
 
-    /*buttonFav -= "bg-blue-500 hover:bg-blue-700"
-    buttonFav += "bg-emerald-400 hover:bg-emerald-700"
+    {% endif %}
+    {% if post.looks == "かっこいい" %} 
+      bodyMain.add("bg-gradient-to-r","from-rose-100","to-indigo-900");
+      if (buttonUnfav){
+        buttonFav.add("bg-emerald-400","hover:bg-emerald-700");
+      }
+      else{
+        buttonFav.add("bg-pink-600","hover:bg-pink-700");
+      }
+      buttonHome.add("bg-indigo-500","hover:bg-indigo-900");
+      buttonDelete.add("bg-pink-600","hover:bg-pink-900");
+    {% endif %}
 
-    buttonUnfav -= "bg-red-500 hover:bg-red-70"
-    buttonUnfav += "bg-pink-400 hover:bg-pink-700"
 
-    buttonHome -= "bg-blue-500 hover:bg-blue-700"
-    buttonHome += "bg-emerald-400 hover:bg-emerald-700"*/
-
-    {% elif post.looks == "かっこいい" %} 
-    var hoge="hoge"
-    {%endif%}
-    ScrollReveal().reveal('#left', {
-      delay: 100,
-      reset: false,
-      origin: 'bottom',
-      viewFactor: 0.2,
-      duration: 1000,
-      distance: '70px',
-});
+    {% if post.looks == "美しい" %}
+      bodyMain.add("bg-gradient-to-r","from-rose-100","to-blue-900");
+      if (buttonUnfav){
+        buttonUnfav.add("bg-red-500","hover:bg-red-700");
+      }
+      else{
+        buttonFav.add("bg-blue-900","hover:bg-blue-700");
+      }
+      buttonHome.add("bg-blue-900","hover:bg-blue-700");
+      buttonDelete.add("bg-red-500","hover:bg-red-700");
+    {% endif %}
     ScrollReveal().reveal('#center', {
       delay: 150,
       reset: false,
