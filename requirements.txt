@@ -46,4 +46,4 @@ zope.interface==5.5.2
 environ == 1.0
 whitenoise
 wheel
-psycopg2
+psycopg2==2.7.4
