@@ -95,11 +95,20 @@
             <br>
           </div name="left">
         <div name="right" id="image">
+
+
           {% if post.img %}
-          <img src="/media/{{ post.img }}" style=" width:200; height:200;"class="rounded-xl">
+          {% comment %} post.imgのheightが250px未満なら {% endcomment %}
+            {% if post.img.height < 250 %}
+            <img src="/media/{{ post.img }}" style="width:auto;"class="rounded-xl">
+              {% else %}
+              <img src="/media/{{ post.img }}" style="width:auto;height:200px;"class="rounded-xl">
+            {% endif %}
           {% else %}
-          <img src="{% static 'img/NoImage.jpg' %}" width="200" height="200" class="rounded-xl">
+            <img src="{% static 'img/NoImage.jpg' %}" style="width:auto;height:200px;" class="rounded-xl">
           {% endif %} 
+
+
           </a>
         </div name="right">
 

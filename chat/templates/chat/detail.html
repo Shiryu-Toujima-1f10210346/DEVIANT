@@ -9,60 +9,55 @@
 </head>
 {% block header %}
 
-<body class="bg-slate-300">
+<body class="bg-slate-300" id="body-main">
   <div class="p-6 grid grid-cols-3 gap-10">
     
     <div id="left" class="rounded-xl container">
-      
-          {% if request.user.is_authenticated %}
-    {% if favorite.exists %}
-    <div class="container">
-      <a href={% url 'fav' post.id %}>
-        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
-      </a><br><br>
-    </div>
-    {% else %}
-    <div class="container">
-      <a href={% url 'fav' post.id %}>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">お気に入りに追加</button>
-      </a>
-    </div>
-    {% endif %}
-    {% endif %}
-      
-    <!--Homeに戻るボタン-->
-    <div class="container">
-      <a href="/home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homeに戻る</a>
-    </div>
+      {% if request.user.is_authenticated %}
+        {% if favorite.exists %}
+          <div class="container">
+            <a href={% url 'fav' post.id %}>
+              <button id="button-unfav" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
+            </a><br><br>
+          </div>
+        {% else %}
+            <div class="container">
+              <a href={% url 'fav' post.id %}>
+                <button id="button-fav" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">お気に入りに追加</button>
+              </a>
+            </div>
+        {% endif %}
+      {% endif %}
+        <div class="container">
+          <a href="/home" id="button-home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homeに戻る</a>
+        </div>
      
-
- 
-    </div name="left" class="">
+  </div name="left">
 
     <div id="center" class="container">
 
         {% if post.img %} 
 
-      <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6"> 
+          <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6 shadow-2xl"> 
 
-      {% else %} 
+        {% else %} 
 
-      <img src="{% static 'img/NoImage.jpg' %}"class="rounded-xl shadow-2xl"> 
+          <img src="{% static 'img/NoImage.jpg' %}"class="rounded-xl shadow-2xl"> 
 
-      {% endif %} 
+        {% endif %} 
             
       <!--削除ボタン-->
-            <!--作者なら表示-->
-            {% if post.author == request.user.username %}
+      <!--作者なら表示-->
+        {% if post.author == request.user.username %}
             <div class="container">
               <a href="javascript:void(0)" onclick="deletePost()">
               <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">投稿を削除する</button>
               </a>
             </div>
-    {% endif %}
+        {% endif %}
     </div name="center">
   
-
+    <div id="right" class="container">
        <div name="wrap"class="bg-white rounded-xl p-4 shadow-2xl">
           <div name="top">
              <span class="text-xl"> <p>投稿者:{{ post.author }} タイトル:{{ post.title }}</p></span>
@@ -86,7 +81,7 @@
             
    </div name="right">
 
-   <div id="right" class=" bg-white rounded-xl p-4 container shadow-2xl"> 
+   <div id="bottom-left" class=" bg-white rounded-xl p-4 container shadow-2xl"> 
     <h2>Comments</h2><br> 
 
     {% if post.comment_num > 0%} 
@@ -99,11 +94,11 @@
 
       <small>[{{ comment.created_at }}]</small> 
 
-      <div> 
+        <div> 
 
-        {{ comment.text | linebreaksbr }} 
+          {{ comment.text | linebreaksbr }} 
 
-      </div> 
+        </div> 
 
     </div> 
 
@@ -114,12 +109,11 @@
     <p>コメントはまだありません｡</p> 
 
     {% endif %} 
+  </div name="right">
 
-   
+<div id="bottom-center" class="bg-white rounded-xl shadow-2xl p-4">
 
-    <br><br> 
-
-    {% if request.user.is_authenticated %} 
+  {% if request.user.is_authenticated %} 
 
     <form action="comment/" method="post" class=""> 
 
@@ -140,11 +134,32 @@
     <p>いいね､又はコメントするには<a href={% url 'login' %}><br><strong>ログイン</strong></a>してください。</p> 
 
     {% endif %} 
-  </div name="right">
+
+</div>
 
   </div>
 
   <script>
+    /*var bodyMain = document.getElementById("body-main").className;
+    var buttonFav = document.getElementById("button-fav").classList;
+    var buttonUnfav = document.getElementById("button-unfav").className;
+    var buttonHome = document.getElementById("button-home").className;*/
+    {% if post.looks == "かわいい" %}
+    document.getElementById("body-main").classList.remove("bg-slate-300");
+    document.getElementById("body-main").classList.add("bg-gradient-to-r","from-blue-200","via-rose-100","to-pink-400");
+
+    /*buttonFav -= "bg-blue-500 hover:bg-blue-700"
+    buttonFav += "bg-emerald-400 hover:bg-emerald-700"
+
+    buttonUnfav -= "bg-red-500 hover:bg-red-70"
+    buttonUnfav += "bg-pink-400 hover:bg-pink-700"
+
+    buttonHome -= "bg-blue-500 hover:bg-blue-700"
+    buttonHome += "bg-emerald-400 hover:bg-emerald-700"*/
+
+    {% elif post.looks == "かっこいい" %} 
+    var hoge="hoge"
+    {%endif%}
     ScrollReveal().reveal('#left', {
       delay: 100,
       reset: false,
@@ -158,7 +173,7 @@
       reset: false,
       origin: 'bottom',
       viewFactor: 0.2,
-      duration: 1200,
+      duration: 1000,
       distance: '70px',
     });
     ScrollReveal().reveal('#right', {
@@ -166,9 +181,26 @@
       reset: false,
       origin: 'bottom',
       viewFactor: 0.2,
-      duration: 1200,
+      duration: 1000,
       distance: '70px',
 });
+    ScrollReveal().reveal('#bottom-left', {
+      delay: 250,
+      reset: false,
+      origin: 'bottom',
+      viewFactor: 0.2,
+      duration: 1000,
+      distance: '70px',
+    });
+    ScrollReveal().reveal('#bottom-center', {
+      delay: 300,
+      reset: false,
+      origin: 'bottom',
+      viewFactor: 0.2,
+      duration: 1000,
+      distance: '70px',
+    });
+
     function deletePost() {
       console.log('delete-post');
       if (window.confirm('本当に削除しますか？')) {
