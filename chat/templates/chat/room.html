@@ -65,7 +65,7 @@
             else{
                 chatSocket.send(JSON.stringify({
                     
-                    'message': username+': '+now.toLocaleString()+': \n'+message
+                    'message': username+': '+now.toLocaleString()+'\n'+message
                 }));
                 messageInputDom.value = '';
             }

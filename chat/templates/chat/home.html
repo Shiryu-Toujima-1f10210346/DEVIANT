@@ -49,8 +49,10 @@
     </span> 
   </div>
   <br>
-
-    <h1 class="m-2 text-2xl">投稿一覧</h1>
+  {% if request.resolver_match.url_name == 'my_prof'%}
+    <h1 class="m-2 text-2xl">あなたの投稿一覧</h1>
+  {% endif %}
+  <h1 class="m-2 text-2xl">投稿一覧</h1>
     <div class="
     grid 
     grid-cols-1 text-3xl
@@ -80,7 +82,7 @@
       ">
           <div name="left">
             <p>投稿者:{{ post.author }}</p>
-            <p>タイトル:<span class="">{{ post.title }}</span></p>
+            <p>報告対象:<span class="">{{ post.title }}</span></p>
         </span>
       <br>
       <span class="
