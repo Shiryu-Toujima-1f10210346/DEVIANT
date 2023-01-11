@@ -10,12 +10,12 @@
 {% block header %}
 
 <body class="bg-slate-300" id="body-main">
-  <div class="p-6 grid grid-cols-3 gap-10" name="main">
+  <div class="pr-16 pl-16 p-6 grid grid-cols-3 gap-10" name="main">
     
   <div id="left" class="rounded-xl container bg-white p-4 shadow-2xl">
-    <div name="wrap"class="">
+    <div name="wrap"class="text-xl">
       <div name="top">
-         <span class="text-xl"> <p>投稿者:{{ post.author }} タイトル:{{ post.title }}</p></span>
+         <p class="text-2xl">投稿者:{{ post.author }} タイトル:{{ post.title }}</p>
           <p>性別:{{ post.sex }} 容姿:{{ post.looks }}</p>
           <p>種族:{{ post.type }} 状態:{{ post.state }}</p>  
           <br>
@@ -38,18 +38,18 @@
 
           <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6 shadow-2xl"> 
           <br>
-          <p class="p-2 bg-white rounded-xl shadow-2xl">画像の説明:{{ post.alt_text }}</p>
+          <p class="p-2 bg-white rounded-xl shadow-2xl text-xl">画像の説明:{{ post.alt_text }}</p>
         {% else %} 
 
           <img src="{% static 'img/NoImage.jpg' %}"class="rounded-xl shadow-2xl"> 
           <br>
-          <p class="p-2 bg-white rounded-xl shadow-2xl">画像の説明:No Infomation.</p>
+          <p class="p-2 bg-white rounded-xl shadow-2xl text-xl">画像の説明:No Infomation.</p>
         {% endif %} 
             
       
   </div name="center">
   
-  <div id="right" class="container bg-white rounded-xl p-4 container shadow-2xl">
+  <div id="right" class="container bg-white rounded-xl p-4 container shadow-2xl text-xl">
        
     <h2 class="text-2xl">Comments</h2><br> 
 
@@ -83,11 +83,12 @@
   </div name="right">
 
   <div id="bottom-left" class="bg-white rounded-xl p-4 container shadow-2xl text-4xl"> 
-    <p>閲覧数:{{post.pv}} お気に入り数:{{ post.fav_num }}</p>
-          <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+    <p>閲覧数:  {{post.pv}} <p>
+      <p>お気に入り数:  {{ post.fav_num }}</p>
+          <p>投稿日時:  {{ post.created_at | date:'Y/m/d H:i'}}</p>
   </div name="bottom-left">
 
-  <div id="bottom-center" class="">
+  <div id="bottom-center" class="p-12">
 <!--削除ボタン-->
       <!--作者なら表示-->
       {% if post.author == request.user.username %}
@@ -100,9 +101,9 @@
     {% if request.user.is_authenticated %}
     {% if favorite.exists %}
       <div class="container pt-6">
-        <a href={% url 'fav' post.id %}class="flex justify-center">
+        <a href={% url 'fav' post.id %} class="flex justify-center">
           <button id="button-unfav" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除 🗑</button>
-        </a><br><br>
+        </a>
       </div>
     {% else %}
         <div class="container pt-6">
