@@ -147,7 +147,7 @@
     if ( document.getElementById("button-unfav") ) {
      var buttonUnfav = document.getElementById("button-unfav").classList;
     }
-    else {
+    if (document.getElementById("button-fav")){
      var buttonFav = document.getElementById("button-fav").classList;
     }
     var buttonDelete = document.getElementById("button-delete").classList;
@@ -156,7 +156,7 @@
       if (buttonUnfav){
       buttonUnfav.remove("bg-red-500","hover:bg-red-700");
       }
-      else{
+      if (buttonFav){
         buttonFav.remove("bg-blue-500","hover:bg-blue-700");
       }
 
@@ -171,7 +171,7 @@
       if (buttonUnfav){
         buttonUnfav.add("bg-pink-400","hover:bg-pink-700");
       }
-      else{
+      if (buttonFav){
         buttonFav.add("bg-pink-400","hover:bg-pink-700");
       }
       buttonDelete.add("bg-red-500","hover:bg-red-700");
@@ -183,7 +183,7 @@
       if (buttonUnfav){
         buttonFav.add("bg-emerald-400","hover:bg-emerald-700");
       }
-      else{
+      if (buttonFav){
         buttonFav.add("bg-pink-600","hover:bg-pink-700");
       }
       buttonHome.add("bg-indigo-500","hover:bg-indigo-900");
@@ -196,7 +196,7 @@
       if (buttonUnfav){
         buttonUnfav.add("bg-red-500","hover:bg-red-700");
       }
-      else{
+      if (buttonFav){
         buttonFav.add("bg-blue-900","hover:bg-blue-700");
       }
       buttonHome.add("bg-blue-900","hover:bg-blue-700");
