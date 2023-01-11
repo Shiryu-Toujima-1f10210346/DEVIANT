@@ -23,8 +23,7 @@
     <div class="flex md:order-2">
       {% if user.is_authenticated %}
 
-    <h2 class="flex justify-center items-center p-4 text-lg" id="username">{{ user.username }}
-      さん  </h2> 
+    <h2 class="flex justify-center items-center p-4 text-lg" id="username">{{ user.username }}さん  </h2> 
       <button type="button" onclick="location.href='{% url 'logout' %}'" 
       class="text-white bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none 
       focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center m-3 

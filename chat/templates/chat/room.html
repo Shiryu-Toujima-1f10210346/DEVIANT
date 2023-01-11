@@ -5,24 +5,22 @@
     <title>Chat Room</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-{% extends 'chat/header.html' %}
+{% extends 'chat/header2.html' %}
 {% block header %}
 <body class="bg-gradient-to-r from-slate-300 to-white">
 
 
     <div id="main" class="p-16 container mx-auto">
         <div class="flex justify-center">
-          <textarea id="chat-log" cols="100" rows="20" readonly class="resize-none border-4  border-gray-400 rounded-xl shadow-2xl p-4"></textarea></div><br>
+          <textarea id="chat-log" cols="100" rows="20" readonly class="resize-none border-4  border-gray-400 rounded-xl shadow-2xl p-4 text-xl"></textarea></div><br>
   
           <div class="flex justify-center">
-        <p>Comment</p>
-  
         
           <input class=" bg-gray-200 border-2 border-black rounded-2xl shadow-2xl p-4" id="chat-message-input" type="text" size="70"><br>
         
   
-          <div class="">
-          <input id="chat-message-submit" type="button" value="Send"class="p-2 pr-5 pl-5 bg-gray-600 text-white rounded-xl shadow-2xl hover:text-blue-200 hover:bg-gray-800">
+          <div class="pl-6 pt-2">
+          <input id="chat-message-submit" required type="button" value="Send"class="p-2 pr-5 pl-5 bg-gray-600 text-white rounded-xl shadow-2xl hover:text-blue-200 hover:bg-gray-800">
           </div>
         </div>
       </div>
@@ -59,11 +57,18 @@
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-
-                'message': message
-            }));
-            messageInputDom.value = '';
+            const username = document.getElementById('username').textContent;
+            var now = new Date();
+            if (message == '') {
+                window.confirm('文字を入力してください｡')
+            }
+            else{
+                chatSocket.send(JSON.stringify({
+                    
+                    'message': username+': '+now.toLocaleString()+': \n'+message
+                }));
+                messageInputDom.value = '';
+            }
         };
     </script>
 </body>
