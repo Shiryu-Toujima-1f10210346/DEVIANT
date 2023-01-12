@@ -99,7 +99,7 @@ class PostDeleteView(View):
         #投稿者とログインユーザーが一致しているか確認
         
         post = Post.objects.get(pk=self.kwargs['pk'])
-        if post.author == self.request.user.username:
+        if post.author == self.request.user.username or self.request.user.is_superuser:
             post.delete()
             return HttpResponseRedirect(reverse('home'))
         else:
