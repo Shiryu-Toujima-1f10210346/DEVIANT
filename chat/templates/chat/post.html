@@ -19,12 +19,12 @@
   <img src="{% static 'img/postbg.png' %}" style="width:100%;height:100%;object-fit:cover;position:fixed;z-index:-3;">
 {% if request.user.is_authenticated %}
  <!--Postモデルを利用した投稿機能-->
-<div name="main" class="p-16">
+<div name="main" class="p-6 md:p-16">
    <form action="" method="post" enctype="multipart/form-data" class="p-8 bg-gradient-to-r from-indigo-100 via-sky-100 to-blue-100 shadow-xl m-4 border-b-8 border-r-8 border-t border-l border-gray-100 rounded-lg font-mono"><!--投稿完了を表示させたい-->
   {%csrf_token%}
   <div class="m-3">
   
-  <div name="上部分" class="grid grid-cols-2">
+  <div name="上部分" class="grid grid-cols-1 md:grid-cols-2">
       {% comment %} <div name="左"class="">
           <label for="id_image">画像</label>
           <input type="file" name="img" class="w-full" id="img" accept="image/*">
@@ -55,15 +55,15 @@
           </div>
       </div>
   
-    <div name="右" class="container mx-16">
+    <div name="右" class="container md:mx-16">
   
   
-          <div class="m-2 text-3xl">
+          <div class="m-2 text-lg md:text-3xl">
             <label for="title">名前</label>
             <input type="title" name="title" class="" required id="title">
           </div>
   
-          <div class="m-2 text-3xl">
+          <div class="m-2 text-lg md:text-3xl">
             <label for="id_sex">性別</label>
             <select name="sex" class="" required >
               <option value="" disabled selected>--- 性別を選択 ---</option>
@@ -73,7 +73,7 @@
             </select>
           </div>
           
-          <div class="m-2 text-3xl">
+          <div class="m-2 text-lg md:text-3xl">
             <label for="looks">分類</label>
             <select name="looks" class="" required>
                 <option value="" disabled selected>--- 分類を選択 ---</option>
@@ -84,7 +84,7 @@
             </select>
         </div>
   
-          <div class="m-2 text-3xl">
+          <div class="m-2 text-lg md:text-3xl">
               <label for="type">種族</label>
               <select name="type" class="" required>
                   <option value="" disabled selected>--- 種族を選択 ---</option>
@@ -94,7 +94,7 @@
               </select>
           </div>
           
-          <div class="m-2 text-3xl">
+          <div class="m-2 text-lg md:text-3xl">
               <label for="state" class="">状態</label>
               <select name="state" class="" required>
                 <option value="" disabled selected>--- 状態を選択 ---</option>
@@ -125,7 +125,7 @@
 
 
 {% else %}
-    <p>投稿するには<a href={% url 'login' %}><strong>ログイン</strong></a>してください。</p>
+    <p class="m-16">投稿するには<a href={% url 'login' %}><strong>ログイン</strong></a>してください。</p>
 {% endif %}
 
 

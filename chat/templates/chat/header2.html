@@ -29,7 +29,7 @@
       focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center m-3 
       md:mr-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ">Logout</button>
       <button data-collapse-toggle="navbar-sticky" type="button" 
-      class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg hidden sm:hidden md:hidden lg:visible hover:bg-gray-100 
+      class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 
       focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
         <span class="sr-only">Open main menu</span>
         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" 
@@ -45,7 +45,7 @@
         dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
 
         <button data-collapse-toggle="navbar-sticky" type="button" 
-        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden md:hidden  hover:bg-gray-100 
+        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden  hover:bg-gray-100 
         focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" 
@@ -114,7 +114,7 @@
     </div>
     </div>
   </nav>
-  <br><br><br><br>
+  <br><br><br>
 </header>
 <div name="load">
 
@@ -155,7 +155,7 @@ $(window).on('load',function(){
 //ページの読み込みが完了してなくても3秒後にアニメーションを非表示にする
 setTimeout(function(){
     cover.fadeOut();
-},3000);
+},1500);
 //////////////////////LOADER///////////////////////////
 $(window).on('load',function(){
     loader.delay(300).fadeOut(300);
@@ -165,7 +165,7 @@ loaderBox.delay(300).fadeOut(300);
 setTimeout(function(){
     loader.fadeOut();
 loaderBox.fadeOut();
-},3000);
+},1500);
 });
 
 
