@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+import time
 
 #投稿の一覧を表示するビュー
 class PostListView(ListView):
@@ -77,9 +78,10 @@ class CommentCreateView(CreateView):
     form_class = CommentForm
     def form_valid(self, form):
         post = Post.objects.get(pk=self.kwargs['pk'])
-        post.comment_num += 1
         #リダイレクト時､PVが増えてしまうので-1
-        post.pv -= 1
+        if post.author != self.request.user.username:
+            post.pv -= 1
+        post.comment_num += 1
         post.save()
         #post_comment_idにcomment_numを入れる
         form.instance.post_comment_id = post.comment_num
@@ -91,6 +93,7 @@ class CommentCreateView(CreateView):
         form.instance.text = form.cleaned_data['text']
         #保存
         form.save()
+        time.sleep(5)
         return HttpResponseRedirect(reverse('detail', kwargs={'pk': self.kwargs['pk']}))
 
 #自分の投稿を削除するビュー

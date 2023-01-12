@@ -8,12 +8,12 @@
   <title>{% block title %}Detail{% endblock title %}</title>
 </head>
 {% block header %}
-
+<br><br>
 <body class="bg-slate-300" id="body-main">
   <div class="pr-16 pl-16 p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10" name="main">
     
-  <div id="left" class="rounded-xl container bg-white p-4 shadow-2xl">
-    <div name="wrap"class="text-xl">
+  <div id="left" class="">
+    <div name="wrap"class="text-xl rounded-xl container bg-white p-4 shadow-2xl">
       <div name="top">
          <p class="text-2xl">投稿者:{{ post.author }} タイトル:{{ post.title }}</p>
           <p>性別:{{ post.sex }} 容姿:{{ post.looks }}</p>
@@ -23,11 +23,11 @@
       </div name="top">
 
     <div name="bottom">
-     <div>
+     
       <br>
         <p>内容:</p>
           {{ post.content | linebreaksbr }}
-     </div>
+     
     </div name="bottom">
     
     </div name="wrap">
@@ -129,10 +129,10 @@
 
       {{ comment_form.as_div }} 
 
-      <div class="flex justify-end"> 
+      <div class="flex justify-end" id ="commentWrap"> 
 
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">コメントする</button> 
-
+        <button type="submit" onclick="commentDisabled();"id="comment" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">コメントする</button> 
+        <button type="submit" onclick="commentDisabled();"id="commentSending" disabled class="hidden bg-gray-500 text-white font-bold py-2 px-4 rounded">送信中･･･</button> 
       </div> 
 
     </form> 
@@ -148,6 +148,11 @@
   </div name="main">
 
   <script>
+    function commentDisabled(){
+      console.log("送信中...");
+      document.getElementById("comment").classList.add("hidden");
+      document.getElementById("commentSending").classList.remove("hidden");
+    }
     var bodyMain = document.getElementById("body-main").classList;
     var buttonHome = document.getElementById("button-home").classList;
     if ( document.getElementById("button-unfav") ) {
