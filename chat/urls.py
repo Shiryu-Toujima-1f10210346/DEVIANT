@@ -18,7 +18,7 @@ urlpatterns = [
     path("tos/", views.tos, name="tos"),
     path("forgotpass/", views.forgotpass, name="forgotpass"),
     path("favlist/", views.FavListView.as_view(), name="favlist"),
-
+    path("changelog/", views.changelog, name="changelog"),
 
     path("chat/", views.chat, name="chat"),
     path("chat/<str:room_name>/", views.room, name="room"),

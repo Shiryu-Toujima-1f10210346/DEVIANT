@@ -262,3 +262,5 @@ def room(request, room_name):
     return render(request, "chat/room.html", {"room_name": room_name})
 def signupold(request):
     return render(request, "chat/signup-old.html")
+def changelog(request):
+    return render(request, "chat/changelog.html")
