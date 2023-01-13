@@ -102,19 +102,19 @@
     {% if favorite.exists %}
       <div class="container pt-6">
         <a href={% url 'fav' post.id %} class="flex justify-center">
-          <button id="button-unfav" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">お気に入りから削除</button>
+          <button id="button-unfav" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-2xl">お気に入りから削除</button>
         </a>
       </div>
     {% else %}
         <div class="container pt-6">
           <a href={% url 'fav' post.id %} class="flex justify-center">
-            <button id="button-fav" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">お気に入りに追加</button>
+            <button id="button-fav" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-2xl">お気に入りに追加</button>
           </a>
         </div>
     {% endif %}
   {% endif %}
     <div class="container pt-6 flex justify-center">
-      <a href="/home" id="button-home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">Homeに戻る 🏚</a>
+      <a href="/home" id="button-home" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-2xl">Homeに戻る 🏚</a>
     </div>
  
 
@@ -131,8 +131,8 @@
 
       <div class="flex justify-end" id ="commentWrap"> 
 
-        <button type="submit" onclick="commentDisabled();"id="comment" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">コメントする</button> 
-        <button type="submit" onclick="commentDisabled();"id="commentSending" disabled class="hidden bg-gray-500 text-white font-bold py-2 px-4 rounded">送信中･･･</button> 
+        <button type="submit" onclick="commentDisabled();"id="comment" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-2xl">コメントする</button> 
+        <button type="submit" onclick="commentDisabled();"id="commentSending" disabled class="hidden bg-gray-500 text-white font-bold py-2 px-4 rounded shadow-2xl">送信中･･･</button> 
       </div> 
 
     </form> 
@@ -176,7 +176,7 @@
       buttonDelete.remove("bg-red-500","hover:bg-red-700");
 
     {% endif %}
-    {% if post.looks == "かわいい" %}
+    {% if post.looks == "CUTE" %}
     
       bodyMain.add("bg-gradient-to-r","from-blue-200","via-rose-100","to-pink-400");
       if (buttonUnFav){
@@ -189,7 +189,7 @@
       buttonHome.add("bg-emerald-400","hover:bg-emerald-700");
 
     {% endif %}
-    {% if post.looks == "かっこいい" %} 
+    {% if post.looks == "COOL" %} 
       bodyMain.add("bg-gradient-to-r","from-rose-100","to-indigo-900");
       if (buttonUnFav){
         buttonUnFav.add("bg-emerald-400","hover:bg-emerald-700");
@@ -202,7 +202,7 @@
     {% endif %}
 
 
-    {% if post.looks == "美しい" %}
+    {% if post.looks == "BEAUTIFUL" %}
       bodyMain.add("bg-gradient-to-r","from-rose-100","to-blue-900");
       if (buttonUnFav){
         buttonUnFav.add("bg-red-500","hover:bg-red-700");
