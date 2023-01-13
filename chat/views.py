@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import time
+import base64
 
 #投稿の一覧を表示するビュー
 class PostListView(ListView):
@@ -50,9 +51,11 @@ class PostCreateView(CreateView):
     model = Post
     fields = ('title','sex','looks','type','state','content','img','alt_text')
     def form_valid(self, form):
-        if form.instance.img == "":
-            form.instance.img = None
         form.instance.author = self.request.user
+        if self.request.FILES == {}:
+            form.instance.img = None
+        else:
+            form.instance.img = base64.b64encode(self.request.FILES['img'].read()).decode('utf-8')
         return super().form_valid(form)
     #homeにリダイレクト
     success_url = '/home/'
@@ -93,7 +96,6 @@ class CommentCreateView(CreateView):
         form.instance.text = form.cleaned_data['text']
         #保存
         form.save()
-        time.sleep(5)
         return HttpResponseRedirect(reverse('detail', kwargs={'pk': self.kwargs['pk']}))
 
 #自分の投稿を削除するビュー

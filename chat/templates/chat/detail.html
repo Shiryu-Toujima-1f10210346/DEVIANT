@@ -36,7 +36,7 @@
 
         {% if post.img %} 
 
-          <img src="/media/{{ post.img }}" class="rounded-xl w-full mr-6 shadow-2xl"> 
+        <img src="data:image/png;base64, {{ post.img }}" class="rounded-xl w-full mr-6 shadow-2xl"> 
           <br>
           <p class="p-2 bg-white rounded-xl shadow-2xl text-xl">画像の説明:{{ post.alt_text }}</p>
         {% else %} 

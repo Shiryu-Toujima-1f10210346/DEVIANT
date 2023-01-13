@@ -25,9 +25,12 @@
   </div>
   {% comment %} ここまでローディング画面 {% endcomment %}
 
-  {% comment %}  {% endcomment %}
+  {% comment %} アナウンスバー {% endcomment %}
   <br>
   <marquee scrollamount="12"class="
+
+  hidden
+
   p-4 m-4
   text-3xl
   bg-gray-200
@@ -35,7 +38,7 @@
   ">
   ～※ 現在､Renderの仕様で投稿の画像が表示されなくなっています｡期末試験が終了し次第修正しますので暫くお待ち下さい｡ ※～
   </marquee>
-{% comment %}  {% endcomment %}
+{% comment %} アナウンスバー {% endcomment %}
 
   <div class="
   p-4 m-4
@@ -114,9 +117,9 @@
           {% if post.img %}
           {% comment %} post.imgのheightが250px未満なら {% endcomment %}
             {% if post.img.height < 250 %}
-            <img src="/media/{{ post.img }}" style="width:auto; text-align:center;"class="rounded-xl pr-">
+            <img src="data:image/png;base64, {{ post.img }}" style="width:auto; text-align:center;"class="rounded-xl pr-">
               {% else %}
-              <img src="/media/{{ post.img }}" style="width:auto;height:200px; text-align:center;"class="rounded-xl">
+              <img src="data:image/png;base64, {{ post.img }}" style="width:auto;height:200px; text-align:center;"class="rounded-xl">
             {% endif %}
           {% else %}
             <img src="{% static 'img/NoImage.jpg' %}" style="width:auto;height:200px; text-align:center;" class="rounded-xl">
