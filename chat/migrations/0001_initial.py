@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('fav_num', models.IntegerField(default=0)),
                 ('comment_num', models.IntegerField(default=0)),
-                ('img', models.ImageField(blank=True, null=True, upload_to='post-image/')),
+                ('img', models.TextField(blank=True, null=True)),
                 ('pv', models.IntegerField(default=0)),
                 ('alt_text', models.CharField(blank=True, max_length=30, null=True)),
             ],
