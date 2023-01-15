@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+{% extends 'chat/header2.html' %}
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}Home{% endblock title %}</title>
+    {% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="{% static 'css/load.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    {% endblock %}
+</head>
+
+{% block header %}
+
+<body class="bg-gradient-to-r from-blue-100 via-red-100 to-yellow-100">
+  
+  {% comment %} ここからローディング画面 {% endcomment %}
+  <div class="w-full h-full bg-white cover"style="z-index:5; position:fixed;"></div>
+  <div class="w-full h-full loaderBox"style="z-index:7; position:fixed;">
+    <div class="loader">loading...</div>
+  </div>
+  {% comment %} ここまでローディング画面 {% endcomment %}
+
+
+  {% comment %} アナウンスバー {% endcomment %}
+  <div class="
+  ">
+    <br>
+    <marquee scrollamount="12"class="
+    p-4 m-4
+    text-3xl
+    bg-gray-200
+    rounded-2xl
+    shadow-2xl
+    ">
+    ～画像投稿が出来るようになりました！ご迷惑をお掛けしました｡～
+    </marquee>
+  </div>
+{% comment %} アナウンスバー {% endcomment %}
+
+  <div class="
+  px-4 m-2
+  md:px-16 md:m-4
+  lg:text-xl
+  ">
+  <div class="p-4 m-4 bg-white border rounded-lg border-b-4 border-black border-r-4 shadow-xl">
+    <span class="m-2 text-3xl ">
+        <a type="button" href="{%url "home"%}?order=popular" class="hover:shadow-2xl hover:text-blue-500">人気順 </a>
+      </span>
+      <span class="m-2 text-3xl ">
+        <a type="button" href="{%url "home"%}?order=veiled" class="hover:shadow-2xl hover:text-blue-500">発掘 </a>
+      </span> 
+      <span class="m-2 text-3xl">
+        <a type="button" href="{%url "home"%}?order=new" class="hover:shadow-2xl hover:text-blue-500">新着順 </a>
+      </span>
+      <span class="m-2 text-3xl">
+        <a type="button" href="{%url "home"%}?order=old" class="hover:shadow-2xl hover:text-blue-500">古い順</a>
+      </span>
+      <span class="m-2 text-3xl">
+        <a type="button" href="{%url "home"%}?order=pv" class="hover:shadow-2xl hover:text-blue-500">PV順</a>
+      </span>
+    </span> 
+  </div>
+  <br>
+  {% if request.resolver_match.url_name == 'my_prof'%}
+    <h1 class="m-2 text-2xl">あなたの投稿一覧</h1>
+  {% endif %}
+  <h1 class="m-2 text-2xl">投稿一覧</h1>
+    <div class="
+    grid 
+    grid-cols-1 text-3xl
+    sm:grid-cols-2 sm:text-2xl
+    md:grid-cols-3 md:text-xl
+    lg:grid-cols-4 lg:text-lg
+    gap-10
+    pr-4">
+    {% if object_list %}
+      {% for post in object_list %}
+      
+      <div class= "bg-white
+      post
+      container 
+      border border-gray-700 border-solid border-t-2 border-l-2 border-b-8 border-r-8 rounded-2xl
+      hover:shadow-2xl
+      ">
+      <img src="{% static 'img/pinnedPostbg.png' %}" style="width:100%;height:100%;object-fit:cover;position:fixed;z-index:-3;"class="rounded-2xl">
+      <a href = "../post/{{ post.id }}">
+    
+      <div name="overbg" class="p-4">
+        <span class="
+        text-3xl
+        md:text-2xl
+        ">
+            <div name="left">
+              <p style="text-stroke: 2px;">投稿者:{{ post.author }}</p>
+              <p>報告対象:<span class="">{{ post.title }}</span></p>
+          </span>
+        <br>
+        <span class="
+        text-2xl
+        sm:text-2xl
+        md:text-xl
+        lg:text-lg
+        ">
+              <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
+              <p>コメント数:{{ post.comment_num }}</p>
+              <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
+        </span>
+              <br>
+            </div name="left">
+          <div name="right" id="image" class="">
+  
+  
+            {% if post.img %}
+            {% comment %} post.imgのheightが250px未満なら {% endcomment %}
+              {% if post.img.height < 250 %}
+              <img src="data:image/png;base64, {{ post.img }}" style="width:auto; text-align:center;"class="rounded-xl pr-">
+                {% else %}
+                <img src="data:image/png;base64, {{ post.img }}" style="width:auto;height:200px; text-align:center;"class="rounded-xl">
+              {% endif %}
+            {% else %}
+              <img src="{% static 'img/NoImage.jpg' %}" style="width:auto;height:200px; text-align:center;" class="rounded-xl">
+            {% endif %} 
+  
+  
+            </a>
+          </div name="right">
+      </div name="overbg">
+
+    </div>
+  
+      {% endfor %}    
+    </div>
+    {% elif request.resolver_match.url_name == 'home'%}
+    </div>
+      <p>投稿はまだありません｡</p>
+      <br>
+      <p>最初の投稿者になりませんか？</p>
+      <a href ={% url 'post' %}>投稿する</a>
+    
+    {% elif request.resolver_match.url_name == 'my_prof'%}
+  </div>
+      <p>あなたの投稿はまだありません｡</p>
+        <br>
+        <p>投稿してみませんか？  </p>
+      <a href ={% url 'post' %}>投稿する</a>
+    {% endif %}
+
+
+    <script>
+      ScrollReveal().reveal('.post', {
+        delay: 150,
+        rotate: { x: 0, y: 0, z: 10 },
+        reset: false,
+        origin: 'right',
+        viewFactor: 0.2,
+        duration: 1200,
+        distance: '70px',
+ });
+      ScrollReveal().reveal('#image', {
+        delay: 600,
+        rotate: { x: 0, y: 0, z: 0 },
+        reset: false,
+        origin: 'bottom',
+        viewFactor: 0.2,
+        duration: 600,
+        distance: '50px',
+ });
+
+
+  $(function(){
+	var cover = $('.cover');
+  var loader = $('.loader');
+  var loaderBox = $('.loaderBox');
+
+	//ページの読み込みが完了したらアニメーションを非表示
+	$(window).on('load',function(){
+		cover.delay(200).fadeOut(200);
+	});
+
+	//ページの読み込みが完了してなくても3秒後にアニメーションを非表示にする
+	setTimeout(function(){
+		cover.fadeOut();
+	},3000);
+//////////////////////LOADER///////////////////////////
+  $(window).on('load',function(){
+		loader.delay(300).fadeOut(300);
+    loaderBox.delay(300).fadeOut(300);
+	});
+
+	setTimeout(function(){
+		loader.fadeOut();
+    loaderBox.fadeOut();
+	},3000);
+  });
+
+
+
+    </script>
+
+</body>
+{% endblock %}
+
+</html>

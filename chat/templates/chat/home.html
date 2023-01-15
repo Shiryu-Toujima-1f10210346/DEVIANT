@@ -43,7 +43,8 @@
 {% comment %} アナウンスバー {% endcomment %}
 
   <div class="
-  px-16 m-4
+  px-4 m-2
+  md:px-16 md:m-4
   lg:text-xl
   ">
   <div class="p-4 m-4 bg-white border rounded-lg border-b-4 border-black border-r-4 shadow-xl">
@@ -75,61 +76,62 @@
     sm:grid-cols-2 sm:text-2xl
     md:grid-cols-3 md:text-xl
     lg:grid-cols-4 lg:text-lg
-    gap-6
+    gap-10
     pr-4">
     {% if object_list %}
       {% for post in object_list %}
       
-      <div class= "
-      bg-white
+      <div class= "bg-white
       post
       container 
-      border border-gray-700 border-solid border-t-2 border-l-2 border-b-8 border-r-8 rounded-lg
-      m-4 p-4
+      border border-gray-700 border-solid border-t-2 border-l-2 border-b-8 border-r-8 rounded-2xl
       hover:shadow-2xl
       ">
+      {% comment %} 
+      <img src="{% static 'img/pinnedPostbg.png' %}" style="width:100%;height:100%;object-fit:cover;position:fixed;z-index:-3;"class="rounded-2xl"> 
+      {% endcomment %}
       <a href = "../post/{{ post.id }}">
     
-      <span class="
-      text-5xl
-      sm:text-4xl
-      md:text-3xl
-      lg:text-2xl
-      ">
-          <div name="left">
-            <p>投稿者:{{ post.author }}</p>
-            <p>報告対象:<span class="">{{ post.title }}</span></p>
+      <div name="overbg" class="p-4">
+        <span class="
+        text-3xl
+        md:text-2xl
+        ">
+            <div name="left">
+              <p style="text-stroke: 2px;">投稿者:{{ post.author }}</p>
+              <p>報告対象:<span class="">{{ post.title }}</span></p>
+          </span>
+        <br>
+        <span class="
+        text-2xl
+        sm:text-2xl
+        md:text-xl
+        lg:text-lg
+        ">
+              <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
+              <p>コメント数:{{ post.comment_num }}</p>
+              <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
         </span>
-      <br>
-      <span class="
-      text-3xl
-      sm:text-2xl
-      md:text-xl
-      lg:text-lg
-      ">
-            <p>閲覧数:{{post.pv}}  お気に入り数:{{ post.fav_num }}</p>
-            <p>コメント数:{{ post.comment_num }}</p>
-            <p>投稿日時:{{ post.created_at | date:'Y/m/d H:i'}}</p>
-      </span>
-            <br>
-          </div name="left">
-        <div name="right" id="image" class="">
-
-
-          {% if post.img %}
-          {% comment %} post.imgのheightが250px未満なら {% endcomment %}
-            {% if post.img.height < 250 %}
-            <img src="data:image/png;base64, {{ post.img }}" style="width:auto; text-align:center;"class="rounded-xl pr-">
-              {% else %}
-              <img src="data:image/png;base64, {{ post.img }}" style="width:auto;height:200px; text-align:center;"class="rounded-xl">
-            {% endif %}
-          {% else %}
-            <img src="{% static 'img/NoImage.jpg' %}" style="width:auto;height:200px; text-align:center;" class="rounded-xl">
-          {% endif %} 
-
-
-          </a>
-        </div name="right">
+              <br>
+            </div name="left">
+          <div name="right" id="image" class="">
+  
+  
+            {% if post.img %}
+            {% comment %} post.imgのheightが250px未満なら {% endcomment %}
+              {% if post.img.height < 250 %}
+              <img src="data:image/png;base64, {{ post.img }}" style="width:auto; text-align:center;"class="rounded-xl pr-">
+                {% else %}
+                <img src="data:image/png;base64, {{ post.img }}" style="width:auto;height:200px; text-align:center;"class="rounded-xl">
+              {% endif %}
+            {% else %}
+              <img src="{% static 'img/NoImage.jpg' %}" style="width:auto;height:200px; text-align:center;" class="rounded-xl">
+            {% endif %} 
+  
+  
+            </a>
+          </div name="right">
+      </div name="overbg">
 
     </div>
   
