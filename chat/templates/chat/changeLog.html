@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <title>変更履歴</title>
-    <link rel="stylesheet" type="text/css" href="css/web1.css">
 </head>
 
 <body>
@@ -35,7 +35,19 @@
     
     </div>
     
+    <div>
+        <h2>2023/01/29</h2>
+        indexページのアニメーション追加とスマホ対応(画像はまだ)<br>
+        ログイン状態のままDEVIANTにアクセスすると自動でホームに移動するように変更<br>
+        Signupボタンを設置<br>
+        投稿の画像にマウスオーバーすると拡大表示されるように変更<br>
+        投稿の削除ボタンのバグを修正<br>
+    </div>
+    
 
+
+    
+<a href="{% url 'home' %}">Homeに戻る</a>
 </body>
 
 </html>

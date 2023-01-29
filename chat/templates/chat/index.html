@@ -17,14 +17,36 @@
 <body>
 
     <img src="{% static 'img/index2.jpg' %}" style="background-size: cover; opacity:0.5;position:fixed;z-index:3;">
-    <div name="main" class="p-36 pr-48 text-8xl font-serif">
-        “DEVIANT”
+    <div name="main" class="py-16 md:p-36 md:pr-48 md:text-8xl font-serif">
+        
+        <div id="title1" class="px-4 text-4xl md:text-8xl">“DEVIANT”</div>
+
         <br><br><br>
-        <div class="flex justify-end text-6xl">
+
+        <div class="flex justify-end text-3xl md:text-6xl "id="title2">
         -キミの世界を広げよう｡-
         </div>
+
     </div>
     <script>
+        ScrollReveal().reveal('#title1', {
+            delay: 150,
+            reset: false,
+            origin: 'left',
+            viewFactor: 0.2,
+            duration: 1200,
+            distance: '70px',
+     });
+
+        ScrollReveal().reveal('#title2', {
+            delay: 350,
+            reset: false,
+            origin: 'right',
+            viewFactor: 0.2,
+            duration: 1200,
+            distance: '70px',
+     });
+
     </script>
 </body>
 {% endblock %}

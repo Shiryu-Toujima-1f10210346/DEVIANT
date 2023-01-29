@@ -22,6 +22,7 @@
       class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none 
       focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center m-3 
       md:mr-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ">Logout</button>
+
       <button data-collapse-toggle="navbar-sticky" type="button" 
       class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 
       focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
@@ -37,6 +38,11 @@
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
         font-medium rounded-lg px-5 py-2.5 text-center m-3 md:mr-0 dark:bg-blue-600 
         dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+
+        <button type="button" onclick="location.href={% url 'signup' %}" 
+        class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 
+        font-medium rounded-lg px-5 py-2.5 text-center m-3 md:mr-0 dark:bg-green-600 
+        dark:hover:bg-green-700 dark:focus:ring-green-800">Signup</button>
 
         <button data-collapse-toggle="navbar-sticky" type="button" 
         class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 
@@ -82,7 +88,7 @@
           <a href="{% url "my_prof" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg">PROFILE</a>
         </li>
         {% endif %}
-        {% if request.resolver_match.url_name == 'chat' %}
+        {% comment %} {% if request.resolver_match.url_name == 'chat' %}
         <li>
           <a href="{% url "chat" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0 text-xl">ㅤㅤㅤCHATㅤㅤㅤ
           </a>
@@ -91,7 +97,7 @@
         <li>
           <a href="{% url "chat" %}" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-lg">CHAT</a>
         </li>
-        {% endif %}
+        {% endif %} {% endcomment %}
         {% if request.resolver_match.url_name == 'favlist' %}
         <li>
           <a href="{% url "favlist" %}" class="header block py-2 pl-3 pr-4 text-white rounded bg-gray-600  md:hover:text-blue-300 md:p-0 text-xl">ㅤㅤㅤFAVㅤㅤㅤ

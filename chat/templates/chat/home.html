@@ -68,8 +68,10 @@
   <br>
   {% if request.resolver_match.url_name == 'my_prof'%}
     <h1 class="m-2 text-2xl">あなたの投稿一覧</h1>
+    {% else %}
+    <h1 class="m-2 text-2xl">投稿一覧</h1>
   {% endif %}
-  <h1 class="m-2 text-2xl">投稿一覧</h1>
+  
     <div class="
     grid 
     grid-cols-1 text-3xl
@@ -83,7 +85,6 @@
       
       <div class= "bg-white
       post
-      container 
       border border-gray-700 border-solid border-t-2 border-l-2 border-b-8 border-r-8 rounded-2xl
       hover:shadow-2xl
       ">
@@ -120,9 +121,9 @@
             {% if post.img %}
             {% comment %} post.imgのheightが250px未満なら {% endcomment %}
               {% if post.img.height < 250 %}
-              <img src="data:image/png;base64, {{ post.img }}" style="width:auto; text-align:center;"class="rounded-xl pr-">
+              <img src="data:image/png;base64, {{ post.img }}" style="width:auto; text-align:center;"class="rounded-xl hover:scale-150 hover:shadow-2xl">
                 {% else %}
-                <img src="data:image/png;base64, {{ post.img }}" style="width:auto;height:200px; text-align:center;"class="rounded-xl">
+                <img src="data:image/png;base64, {{ post.img }}" style="width:auto;height:200px; text-align:center;"class="rounded-xl hover:scale-150 hover:shadow-2xl">
               {% endif %}
             {% else %}
               <img src="{% static 'img/NoImage.jpg' %}" style="width:auto;height:200px; text-align:center;" class="rounded-xl">
@@ -188,6 +189,9 @@
 	setTimeout(function(){
 		cover.fadeOut();
 	},3000);
+
+
+
 //////////////////////LOADER///////////////////////////
   $(window).on('load',function(){
 		loader.delay(300).fadeOut(300);
@@ -199,9 +203,6 @@
     loaderBox.fadeOut();
 	},3000);
   });
-
-
-
     </script>
 
 </body>

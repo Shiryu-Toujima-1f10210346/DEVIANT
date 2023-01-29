@@ -148,6 +148,7 @@
   </div name="main">
 
   <script>
+    /*コメント送信時､ボタンを無効化する*/
     function commentDisabled(){
       console.log("送信中...");
       document.getElementById("comment").classList.add("hidden");
@@ -161,7 +162,11 @@
     if (document.getElementById("button-fav")){
      var buttonFav = document.getElementById("button-fav").classList;
     }
-    var buttonDelete = document.getElementById("button-delete").classList;
+    if (document.getElementById("button-delete")){
+     var buttonDelete = document.getElementById("button-delete").classList;
+    }
+
+    /*容姿別デザインの適用*/
     {% if post.looks != "その他" %}
 
       if (buttonUnFav){
@@ -173,7 +178,9 @@
 
       bodyMain.remove("bg-slate-300");
       buttonHome.remove("bg-blue-500","hover:bg-blue-700");
-      buttonDelete.remove("bg-red-500","hover:bg-red-700");
+      if (buttonDelete){
+        buttonDelete.remove("bg-red-500","hover:bg-red-700");
+      }
 
     {% endif %}
     {% if post.looks == "CUTE" %}
@@ -185,7 +192,9 @@
       if (buttonFav){
         buttonFav.add("bg-pink-400","hover:bg-pink-700");
       }
-      buttonDelete.add("bg-red-500","hover:bg-red-700");
+      if (buttonDelete){
+        buttonDelete.add("bg-red-400","hover:bg-red-700");
+      }
       buttonHome.add("bg-emerald-400","hover:bg-emerald-700");
 
     {% endif %}
@@ -198,7 +207,9 @@
         buttonFav.add("bg-pink-600","hover:bg-pink-700");
       }
       buttonHome.add("bg-indigo-500","hover:bg-indigo-900");
-      buttonDelete.add("bg-red-600","hover:bg-red-900");
+      if (buttonDelete){
+        buttonDelete.add("bg-red-600","hover:bg-red-900");
+      }
     {% endif %}
 
 
@@ -211,7 +222,9 @@
         buttonFav.add("bg-blue-900","hover:bg-blue-700");
       }
       buttonHome.add("bg-blue-900","hover:bg-blue-700");
-      buttonDelete.add("bg-red-500","hover:bg-red-700");
+      if (buttonDelete){
+        buttonDelete.add("bg-red-500","hover:bg-red-700");
+      }
     {% endif %}
     ScrollReveal().reveal('#left', {
       delay: 100,

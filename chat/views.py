@@ -249,7 +249,10 @@ class Logout(LogoutView):
 
 # simple url define
 def index(request):
-    return render(request, "chat/index.html")
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        return render(request, "chat/index.html")
 def others_prof(request):
     return render(request, "chat/others_prof.html")
 def post(request):
