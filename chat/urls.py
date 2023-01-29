@@ -7,12 +7,10 @@ from django.urls import re_path
 urlpatterns = [
     path("", views.index, name="index"),
     path("signup/", views.AccountRegistration.as_view(), name="signup"),
-    path("signupold/", views.signupold, name="singup"),
     path("login/", views.Login, name="login"),
     path("logout/", views.Logout.as_view(), name="logout"),
 
     path("home/", views.PostListView.as_view(), name="home"), 
-    path("others_prof/", views.others_prof, name="others_prof"),
     path("my_prof/", views.MyPostListView.as_view(), name="my_prof"),
     path("post/", views.PostCreateView.as_view(), name="post"),
     path("tos/", views.tos, name="tos"),
